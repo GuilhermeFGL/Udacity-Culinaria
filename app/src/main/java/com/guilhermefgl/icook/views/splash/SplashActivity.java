@@ -1,12 +1,16 @@
 package com.guilhermefgl.icook.views.splash;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class SplashActivity extends AppCompatActivity {
+import com.guilhermefgl.icook.views.BaseActivity;
+import com.guilhermefgl.icook.views.main.MainActivity;
+
+public class SplashActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        MainActivity.startActivity(this);
     }
 }
