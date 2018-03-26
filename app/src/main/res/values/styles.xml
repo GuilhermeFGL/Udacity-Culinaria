@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -9,9 +9,8 @@
         <item name="android:textColor">@color/primary_text</item>
         <item name="android:textColorPrimary">@color/primary_text</item>
         <item name="android:textColorSecondary">@color/secondary_text</item>
-        <item name="colorButtonNormal">@color/primary_text</item>
         <item name="android:scrollbarThumbVertical">@color/divider</item>
-        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
 
         <item name="android:buttonStyle">@style/ButtonDefault</item>
         <item name="android:borderlessButtonStyle">@style/FlatButton</item>
