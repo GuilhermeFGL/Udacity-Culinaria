@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.guilhermefgl.icook.viewmodels.ReciperViewModel" />
+            type="com.guilhermefgl.icook.viewmodels.RecipeViewModel" />
         <variable
             name="eventHandler"
             type="java.lang.ref.WeakReference&lt;com.guilhermefgl.icook.views.main.RecipeAdapter.EventHandler&gt;" />

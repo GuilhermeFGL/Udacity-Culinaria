@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.databinding.MainRecipeItemBinding;
 import com.guilhermefgl.icook.models.Recipe;
-import com.guilhermefgl.icook.viewmodels.ReciperViewModel;
+import com.guilhermefgl.icook.viewmodels.RecipeViewModel;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -54,7 +54,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
         RecipeAdapterViewHolder(MainRecipeItemBinding binding) {
             super(binding.getRoot());
             mBinding = binding;
-            binding.setViewModel(new ReciperViewModel());
+            binding.setViewModel(new RecipeViewModel());
         }
 
         void setModel(Recipe model) {

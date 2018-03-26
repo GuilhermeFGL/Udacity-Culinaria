@@ -12,7 +12,7 @@ import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.helpers.PicassoHelper;
 import com.guilhermefgl.icook.models.Recipe;
 
-public class ReciperViewModel extends BaseObservable {
+public class RecipeViewModel extends BaseObservable {
 
     private Recipe mRecipe;
 
@@ -52,7 +52,7 @@ public class ReciperViewModel extends BaseObservable {
         return oRecipeImage.get();
     }
 
-    @BindingAdapter({"bind:imageUrl"})
+    @BindingAdapter("bind:imageUrl")
     public static void loadImage(ImageView view, String imageUrl) {
         if (imageUrl != null && !imageUrl.isEmpty()) {
             PicassoHelper.loadImage(
@@ -62,7 +62,7 @@ public class ReciperViewModel extends BaseObservable {
                     R.drawable.icon_placeholder,
                     R.drawable.icon_connection_error);
         } else {
-            view.setImageResource(R.drawable.icon_connection_error);
+            view.setImageResource(R.drawable.icon_placeholder);
         }
     }
 }
