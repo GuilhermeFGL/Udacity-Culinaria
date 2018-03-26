@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.atividade.list.AtividadeListFragment">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.guilhermefgl.icook.viewmodels.ReciperViewModel" />
+        <variable
+            name="eventHandler"
+            type="java.lang.ref.WeakReference&lt;com.guilhermefgl.icook.views.main.RecipeAdapter.EventHandler&gt;" />
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="86dp"
+        android:layout_margin="8dp"
+        android:onClick="@{() -> eventHandler.get().onItemClick(viewModel.model)}"
+        app:cardBackgroundColor="@android:color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/recipe_item_thumbnail"
+                android:layout_width="128dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/recipe_item_thumbnail"
+                app:imageUrl="@{viewModel.image}"
+                tools:src="@drawable/icon_placeholder" />
+
+            <LinearLayout
+                android:layout_toRightOf="@+id/recipe_item_thumbnail"
+                android:layout_toEndOf="@+id/recipe_item_thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/recipe_item_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="@color/accent"
+                    android:textStyle="bold"
+                    android:text="@={viewModel.title}"
+                    tools:text="Titulo receita" />
+
+                <TextView
+                    android:id="@+id/recipe_item_serving"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    android:textColor="@color/secondary_text"
+                    android:text="@{@string/recipe_item_serving(viewModel.serving)}"
+                    tools:text="serves to N people" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</layout>

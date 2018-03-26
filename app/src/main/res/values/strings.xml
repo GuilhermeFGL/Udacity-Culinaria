@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">iCook</string>
+
+    <!-- MAIN ACTIVITY -->
+    <string name="recipe_item_thumbnail">recipe thumbnail</string>
+    <string name="recipe_item_serving">serves to %1$s people</string>
+    <string name="error_main_connection_msg">No internet connection</string>
+    <string name="error_main_connection_action">RETRY</string>
+
 </resources>
