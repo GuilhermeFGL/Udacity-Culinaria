@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-
     <application
         android:name=".ICookApplication"
         android:allowBackup="true"
@@ -15,7 +14,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".views.splash.SplashActivity"
             android:screenOrientation="portrait"
@@ -30,7 +28,24 @@
             android:name=".views.main.MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity
+            android:name=".views.details.ItemListActivity"
+            android:label="@string/title_item_list"
+            android:parentActivityName=".views.main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.guilhermefgl.icook.views.main.MainActivity" />
+        </activity>
+        <activity
+            android:name=".views.details.ItemDetailActivity"
+            android:label="@string/title_item_detail"
+            android:parentActivityName=".views.details.ItemListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.guilhermefgl.icook.views.details.ItemListActivity" />
+        </activity>
     </application>
 
 </manifest>

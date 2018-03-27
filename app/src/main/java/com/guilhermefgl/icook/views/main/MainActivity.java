@@ -10,10 +10,10 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
-import android.widget.Toast;
 
+import com.guilhermefgl.icook.views.details.ItemListActivity;
 import com.guilhermefgl.icook.R;
-import com.guilhermefgl.icook.databinding.MainActivityBinding;
+import com.guilhermefgl.icook.databinding.ActivityMainBinding;
 import com.guilhermefgl.icook.models.Recipe;
 import com.guilhermefgl.icook.services.loaders.RecipeLoader;
 import com.guilhermefgl.icook.views.BaseActivity;
@@ -23,7 +23,7 @@ import java.util.List;
 public class MainActivity extends BaseActivity implements LoaderManager.LoaderCallbacks<List<Recipe>>,
         RecipeAdapter.EventHandler, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
-    private MainActivityBinding mBinding;
+    private ActivityMainBinding mBinding;
     private RecipeAdapter recipeAdapter;
     private Snackbar errorSnackbar;
 
@@ -36,7 +36,7 @@ public class MainActivity extends BaseActivity implements LoaderManager.LoaderCa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.main_activity);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setSupportActionBar(mBinding.mainToolbar);
 
         errorSnackbar = Snackbar.make(
@@ -89,15 +89,19 @@ public class MainActivity extends BaseActivity implements LoaderManager.LoaderCa
 
     @Override
     public void onItemClick(Recipe recipe) {
-        Toast.makeText(this, recipe.getName(), Toast.LENGTH_SHORT).show();
+        ItemListActivity.startActivity(this);
     }
 
     private void getRecipes() {
-        LoaderManager loaderManager = getSupportLoaderManager();
-        if (loaderManager.getLoader(RecipeLoader.LOADER_ID) == null) {
-            loaderManager.initLoader(RecipeLoader.LOADER_ID, null, this);
+        if (isDeviceConnected()) {
+            LoaderManager loaderManager = getSupportLoaderManager();
+            if (loaderManager.getLoader(RecipeLoader.LOADER_ID) == null) {
+                loaderManager.initLoader(RecipeLoader.LOADER_ID, null, this);
+            } else {
+                loaderManager.restartLoader(RecipeLoader.LOADER_ID, null, this);
+            }
         } else {
-            loaderManager.restartLoader(RecipeLoader.LOADER_ID, null, this);
+            errorSnackbar.show();
         }
     }
 }

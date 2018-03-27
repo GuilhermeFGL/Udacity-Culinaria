@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.guilhermefgl.icook.R;
-import com.guilhermefgl.icook.databinding.MainRecipeItemBinding;
+import com.guilhermefgl.icook.databinding.ItemMainRecipeBinding;
 import com.guilhermefgl.icook.models.Recipe;
 import com.guilhermefgl.icook.viewmodels.RecipeViewModel;
 
@@ -26,8 +26,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
     @NonNull
     @Override
     public RecipeAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        MainRecipeItemBinding binding = DataBindingUtil.inflate(
-                LayoutInflater.from(parent.getContext()), R.layout.main_recipe_item, parent, false);
+        ItemMainRecipeBinding binding = DataBindingUtil.inflate(
+                LayoutInflater.from(parent.getContext()), R.layout.item_main_recipe, parent, false);
         binding.setEventHandler(mEventHandler);
         return new RecipeAdapterViewHolder(binding);
     }
@@ -49,9 +49,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
 
     class RecipeAdapterViewHolder extends RecyclerView.ViewHolder {
 
-        private MainRecipeItemBinding mBinding;
+        private ItemMainRecipeBinding mBinding;
 
-        RecipeAdapterViewHolder(MainRecipeItemBinding binding) {
+        RecipeAdapterViewHolder(ItemMainRecipeBinding binding) {
             super(binding.getRoot());
             mBinding = binding;
             binding.setViewModel(new RecipeViewModel());
