@@ -22,11 +22,11 @@
         android:onClick="@{() -> eventHandler.get().onItemClick(viewModel.model)}">
 
         <TextView
-            android:layout_width="72dp"
+            android:layout_width="56dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:gravity="center"
             android:textColor="@color/accent"
             android:text="@={viewModel.id}"
             tools:text="#"/>

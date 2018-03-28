@@ -10,6 +10,6 @@
         android:layout_marginTop="8dp"
         app:layoutManager="LinearLayoutManager"
         tools:context="com.guilhermefgl.icook.views.recipe.RecipeActivity"
-        tools:listitem="@layout/item_details_step" />
+        tools:listitem="@layout/item_recipe_step" />
 
 </layout>

@@ -3,6 +3,7 @@ package com.guilhermefgl.icook.views.recipe;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,9 +42,13 @@ public class StepListFragment extends BaseFragment implements StepAdapter.EventH
                 inflater, R.layout.fragment_list_step, container, false);
 
         isTabletView = binding.getRoot().findViewById(R.id.item_detail_container) != null;
-        if (mSteps != null) {
-            binding.include.stepList.setLayoutManager(new LinearLayoutManager(getActivity()));
-            binding.include.stepList.setAdapter(new StepAdapter(mSteps, this));
+        if (mSteps != null && getContext() != null) {
+            binding.include.stepList.setLayoutManager(
+                    new LinearLayoutManager(getActivity()));
+            binding.include.stepList.addItemDecoration(
+                    new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+            binding.include.stepList.setAdapter(
+                    new StepAdapter(mSteps, this));
         }
         return binding.getRoot();
     }

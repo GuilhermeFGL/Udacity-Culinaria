@@ -30,13 +30,15 @@ public class ViewAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0:
                 Bundle stepArguments = new Bundle();
-                stepArguments.putParcelableArrayList(StepListFragment.BUNDLE_STEPS, mRecipe.getSteps());
+                stepArguments.putParcelableArrayList(
+                        StepListFragment.BUNDLE_STEPS, mRecipe.getSteps());
                 StepListFragment stepFragment =  new StepListFragment();
                 stepFragment.setArguments(stepArguments);
                 return stepFragment;
             case 1:
                 Bundle ingredientArguments = new Bundle();
-                ingredientArguments.putParcelableArrayList(StepListFragment.BUNDLE_STEPS, mRecipe.getSteps());
+                ingredientArguments.putParcelableArrayList(
+                        IngredientListFragment.BUNDLE_INGREDIENTS, mRecipe.getIngredients());
                 IngredientListFragment ingredienFragment =  new IngredientListFragment();
                 ingredienFragment.setArguments(ingredientArguments);
                 return ingredienFragment;

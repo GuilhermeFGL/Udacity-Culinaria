@@ -10,9 +10,7 @@ import android.view.ViewGroup;
 
 import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.databinding.FragmentListIngredientBinding;
-import com.guilhermefgl.icook.databinding.FragmentListStepBinding;
 import com.guilhermefgl.icook.models.Ingredient;
-import com.guilhermefgl.icook.models.Step;
 import com.guilhermefgl.icook.views.BaseFragment;
 
 import java.util.List;
@@ -37,6 +35,11 @@ public class IngredientListFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         FragmentListIngredientBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_list_ingredient, container, false);
+
+        if (mIngredients != null) {
+            binding.ingredientList.setLayoutManager(new LinearLayoutManager(getActivity()));
+            binding.ingredientList.setAdapter(new IngredientAdapter(mIngredients));
+        }
 
         return binding.getRoot();
     }

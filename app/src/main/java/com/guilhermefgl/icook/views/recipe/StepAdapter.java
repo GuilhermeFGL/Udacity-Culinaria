@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.guilhermefgl.icook.R;
-import com.guilhermefgl.icook.databinding.ItemDetailsStepBinding;
+import com.guilhermefgl.icook.databinding.ItemRecipeStepBinding;
 import com.guilhermefgl.icook.models.Step;
 import com.guilhermefgl.icook.viewmodels.StepViewModel;
 
@@ -19,7 +19,7 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
     private final List<Step> mSptes;
     private final WeakReference<EventHandler> mEventHandler;
 
-    StepAdapter(List<Step> steps, EventHandler eventHandler) {
+    StepAdapter(@NonNull List<Step> steps, @NonNull EventHandler eventHandler) {
         mSptes = steps;
         mEventHandler = new WeakReference<>(eventHandler);
     }
@@ -27,8 +27,8 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
     @NonNull
     @Override
     public StepViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemDetailsStepBinding binding = DataBindingUtil.inflate(
-                LayoutInflater.from(parent.getContext()), R.layout.item_details_step, parent, false);
+        ItemRecipeStepBinding binding = DataBindingUtil.inflate(
+                LayoutInflater.from(parent.getContext()), R.layout.item_recipe_step, parent, false);
         binding.setEventHandler(mEventHandler);
         return new StepViewHolder(binding);
     }
@@ -45,9 +45,9 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
 
     class StepViewHolder extends RecyclerView.ViewHolder {
 
-        private ItemDetailsStepBinding mBinding;
+        private ItemRecipeStepBinding mBinding;
 
-        StepViewHolder(ItemDetailsStepBinding binding) {
+        StepViewHolder(ItemRecipeStepBinding binding) {
             super(binding.getRoot());
             mBinding = binding;
             binding.setViewModel(new StepViewModel());

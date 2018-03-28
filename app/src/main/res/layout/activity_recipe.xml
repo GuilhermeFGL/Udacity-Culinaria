@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
-            android:contentDescription="@string/details_fab_description"
+            android:contentDescription="@string/recipe_fab_description"
             app:srcCompat="@drawable/icon_widget" />
 
     </android.support.design.widget.CoordinatorLayout>
