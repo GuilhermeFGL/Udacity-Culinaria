@@ -1,0 +1,6 @@
+<resources>
+
+    <!-- GERAL -->
+    <bool name="isTablet">true</bool>
+
+</resources>

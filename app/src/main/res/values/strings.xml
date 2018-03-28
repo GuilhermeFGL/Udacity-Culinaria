@@ -15,4 +15,7 @@
         <item>Ingredients</item>
     </string-array>
 
+    <!-- GERAL -->
+    <bool name="isTablet">false</bool>
+
 </resources>

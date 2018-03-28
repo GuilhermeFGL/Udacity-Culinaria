@@ -1,6 +1,7 @@
 package com.guilhermefgl.icook.views.main;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -45,7 +46,13 @@ public class MainActivity extends BaseActivity implements LoaderManager.LoaderCa
                 Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.error_main_connection_action, this);
 
-        mBinding.mainList.setLayoutManager(new GridLayoutManager(this, 1));
+        int spanCount = 1;
+        if (getResources().getBoolean(R.bool.isTablet)) {
+            spanCount = 4;
+        } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            spanCount = 2;
+        }
+        mBinding.mainList.setLayoutManager(new GridLayoutManager(this, spanCount));
         recipeAdapter = new RecipeAdapter(this);
         mBinding.mainList.setAdapter(recipeAdapter);
         mBinding.mainRefresh.setOnRefreshListener(this);
