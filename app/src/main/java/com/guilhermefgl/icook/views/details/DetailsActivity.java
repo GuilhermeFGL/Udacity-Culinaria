@@ -42,16 +42,16 @@ public class DetailsActivity extends BaseActivity implements StepAdapter.EventHa
     @Override
     public void onItemClick(Step step) {
         if (isTabletView) {
-//            Bundle arguments = new Bundle();
-//            arguments.putString(ItemDetailFragment.ARG_ITEM_ID, item.id);
-//            ItemDetailFragment fragment = new ItemDetailFragment();
-//            fragment.setArguments(arguments);
-//            mParentActivity.getSupportFragmentManager().beginTransaction()
-//                    .replace(R.id.item_detail_container, fragment)
-//                    .commit();
+            Bundle arguments = new Bundle();
+            arguments.putParcelable(StepDetailsFragment.BUNDLE_STEP, step);
+            StepDetailsFragment fragment =  new StepDetailsFragment();
+            fragment.setArguments(arguments);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.item_detail_container,fragment)
+                    .commit();
         } else {
 //            Intent intent = new Intent(context, ItemDetailActivity.class);
-//            intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, item.id);
+//            intent.putExtra(StepDetailsFragment.ARG_ITEM_ID, item.id);
 //            context.startActivity(intent);
         }
     }
