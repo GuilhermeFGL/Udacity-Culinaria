@@ -50,9 +50,9 @@ public class DetailsActivity extends BaseActivity implements StepAdapter.EventHa
                     .replace(R.id.item_detail_container,fragment)
                     .commit();
         } else {
-//            Intent intent = new Intent(context, ItemDetailActivity.class);
-//            intent.putExtra(StepDetailsFragment.ARG_ITEM_ID, item.id);
-//            context.startActivity(intent);
+            Bundle extras = new Bundle();
+            extras.putParcelable(StepDetailsActivity.BUNDLE_STEP, step);
+            StepDetailsActivity.startActivity(this, extras);
         }
     }
 }

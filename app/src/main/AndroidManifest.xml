@@ -38,7 +38,7 @@
                 android:value="com.guilhermefgl.icook.views.main.MainActivity" />
         </activity>
         <activity
-            android:name=".views.details.ItemDetailActivity"
+            android:name=".views.details.StepDetailsActivity"
             android:label="@string/title_item_detail"
             android:parentActivityName=".views.details.DetailsActivity"
             android:theme="@style/AppTheme.NoActionBar">
