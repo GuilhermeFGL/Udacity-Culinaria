@@ -84,6 +84,8 @@ public class Recipe implements Parcelable {
         name = in.readString();
         servings = in.readInt();
         image = in.readString();
+        ingredients = new ArrayList<>();
+        steps = new ArrayList<>();
         in.readTypedList(ingredients, Ingredient.CREATOR);
         in.readTypedList(steps, Step.CREATOR);
     }

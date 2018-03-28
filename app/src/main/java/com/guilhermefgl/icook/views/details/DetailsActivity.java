@@ -31,9 +31,12 @@ public class DetailsActivity extends BaseActivity implements StepAdapter.EventHa
         isTabletView = mBinding.getRoot().findViewById(R.id.item_detail_container) != null;
         if (getIntent().getExtras() != null && getIntent().hasExtra(BUNDLE_RECIPE)) {
             Recipe recipe = getIntent().getParcelableExtra(BUNDLE_RECIPE);
-            mBinding.listToolbar.setTitle(recipe.getName());
             mBinding.include.itemList.setLayoutManager(new LinearLayoutManager(this));
             mBinding.include.itemList.setAdapter(new StepAdapter(recipe.getSteps(), this));
+
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setTitle(recipe.getName());
+            }
         } else {
             finish();
         }

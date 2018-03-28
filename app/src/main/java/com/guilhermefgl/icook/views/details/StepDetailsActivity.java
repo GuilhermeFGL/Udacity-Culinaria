@@ -27,10 +27,13 @@ public class StepDetailsActivity extends AppCompatActivity {
 
         if (getIntent().getExtras() != null && getIntent().hasExtra(BUNDLE_STEP)) {
             Step step = getIntent().getParcelableExtra(BUNDLE_STEP);
-            binding.listToolbar.setTitle(step.getShortDescription());
+
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setTitle(step.getShortDescription());
+            }
 
             Bundle arguments = new Bundle();
-            arguments.putString(StepDetailsFragment.BUNDLE_STEP, null);
+            arguments.putParcelable(StepDetailsFragment.BUNDLE_STEP, step);
             StepDetailsFragment fragment = new StepDetailsFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
