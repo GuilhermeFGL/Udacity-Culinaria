@@ -11,7 +11,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 
-import com.guilhermefgl.icook.views.details.ItemListActivity;
+import com.guilhermefgl.icook.views.details.DetailsActivity;
 import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.databinding.ActivityMainBinding;
 import com.guilhermefgl.icook.models.Recipe;
@@ -89,7 +89,9 @@ public class MainActivity extends BaseActivity implements LoaderManager.LoaderCa
 
     @Override
     public void onItemClick(Recipe recipe) {
-        ItemListActivity.startActivity(this);
+        Bundle extras = new Bundle();
+        extras.putParcelable(DetailsActivity.BUNDLE_RECIPE, recipe);
+        DetailsActivity.startActivity(this, extras);
     }
 
     private void getRecipes() {
