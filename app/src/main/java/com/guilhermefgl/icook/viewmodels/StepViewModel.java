@@ -17,6 +17,8 @@ public class StepViewModel extends BaseObservable {
     private Step mStep;
 
     @NonNull
+    private final ObservableField<String> oStepId = new ObservableField<>();
+    @NonNull
     private final ObservableField<String> oStepTitle = new ObservableField<>();
     @NonNull
     private final ObservableField<String> oStepDescription = new ObservableField<>();
@@ -27,6 +29,7 @@ public class StepViewModel extends BaseObservable {
 
     public void setModel(Step step) {
         mStep = step;
+        oStepId.set(String.valueOf(step.getId()));
         oStepTitle.set(step.getShortDescription());
         oStepDescription.set(step.getDescription());
         oStepThumbnail.set(step.getThumbnailURL());
@@ -40,6 +43,11 @@ public class StepViewModel extends BaseObservable {
     @Bindable
     public Step getModel() {
         return mStep;
+    }
+
+    @Bindable
+    public ObservableField<String> getId() {
+        return oStepId;
     }
 
     @Bindable

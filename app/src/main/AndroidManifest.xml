@@ -29,7 +29,7 @@
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".views.details.DetailsActivity"
+            android:name=".views.recipe.RecipeActivity"
             android:parentActivityName=".views.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -37,12 +37,12 @@
                 android:value="com.guilhermefgl.icook.views.main.MainActivity" />
         </activity>
         <activity
-            android:name=".views.details.StepDetailsActivity"
-            android:parentActivityName=".views.details.DetailsActivity"
+            android:name=".views.step.StepDetailsActivity"
+            android:parentActivityName=".views.recipe.RecipeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.guilhermefgl.icook.views.details.DetailsActivity" />
+                android:value="com.guilhermefgl.icook.views.recipe.RecipeActivity" />
         </activity>
     </application>
 

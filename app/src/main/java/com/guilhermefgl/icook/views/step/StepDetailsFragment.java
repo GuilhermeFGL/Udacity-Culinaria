@@ -1,11 +1,10 @@
-package com.guilhermefgl.icook.views.details;
+package com.guilhermefgl.icook.views.step;
 
 import android.app.Activity;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,9 @@ import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.databinding.FragmentDetailsStepBinding;
 import com.guilhermefgl.icook.models.Step;
 import com.guilhermefgl.icook.viewmodels.StepViewModel;
+import com.guilhermefgl.icook.views.BaseFragment;
 
-public class StepDetailsFragment extends Fragment {
+public class StepDetailsFragment extends BaseFragment {
 
     public static final String BUNDLE_STEP = StepDetailsFragment.class.getName().concat(".BUNDLE_STEP");
 

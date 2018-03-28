@@ -4,14 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/item_list"
-        android:name="com.guilhermefgl.icook.ItemListFragment"
+        android:id="@+id/step_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
         app:layoutManager="LinearLayoutManager"
-        tools:context="com.guilhermefgl.icook.views.details.DetailsActivity"
+        tools:context="com.guilhermefgl.icook.views.recipe.RecipeActivity"
         tools:listitem="@layout/item_details_step" />
 
 </layout>

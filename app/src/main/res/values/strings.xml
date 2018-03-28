@@ -6,7 +6,12 @@
     <string name="recipe_item_serving">serves to %1$s people</string>
     <string name="error_main_connection_msg">No internet connection</string>
     <string name="error_main_connection_action">RETRY</string>
-    <string name="title_item_list">Items</string>
-    <string name="title_item_detail">Item Detail</string>
+
+    <!-- DETAILS ACTIVITY -->
+    <string name="details_fab_description">show in widget</string>
+    <string-array name="details_tab_title">
+        <item>Steps</item>
+        <item>Ingredients</item>
+    </string-array>
 
 </resources>

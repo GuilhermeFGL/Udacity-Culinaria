@@ -1,9 +1,10 @@
-package com.guilhermefgl.icook.views.details;
+package com.guilhermefgl.icook.views.step;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.databinding.ActivityStepDetailBinding;
@@ -23,13 +24,14 @@ public class StepDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityStepDetailBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_step_detail);
-        setSupportActionBar(binding.listToolbar);
+        setSupportActionBar(binding.stepToolbar);
 
         if (getIntent().getExtras() != null && getIntent().hasExtra(BUNDLE_STEP)) {
             Step step = getIntent().getParcelableExtra(BUNDLE_STEP);
 
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setTitle(step.getShortDescription());
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             }
 
             Bundle arguments = new Bundle();
@@ -41,6 +43,17 @@ public class StepDetailsActivity extends AppCompatActivity {
                     .commit();
         } else {
             finish();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

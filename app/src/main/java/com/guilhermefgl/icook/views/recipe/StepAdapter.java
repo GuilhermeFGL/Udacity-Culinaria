@@ -1,4 +1,4 @@
-package com.guilhermefgl.icook.views.details;
+package com.guilhermefgl.icook.views.recipe;
 
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;

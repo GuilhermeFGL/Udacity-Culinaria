@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".views.details.DetailsActivity">
+    tools:context=".views.recipe.RecipeActivity">
 
     <data>
         <variable
@@ -9,20 +9,32 @@
             type="com.guilhermefgl.icook.viewmodels.StepViewModel" />
         <variable
             name="eventHandler"
-            type="java.lang.ref.WeakReference&lt;com.guilhermefgl.icook.views.details.StepAdapter.EventHandler&gt;" />
+            type="java.lang.ref.WeakReference&lt;com.guilhermefgl.icook.views.recipe.StepAdapter.EventHandler&gt;" />
     </data>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="16dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="?android:selectableItemBackground"
         android:onClick="@{() -> eventHandler.get().onItemClick(viewModel.model)}">
+
+        <TextView
+            android:layout_width="72dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/accent"
+            android:text="@={viewModel.id}"
+            tools:text="#"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceListItemSecondary"
+            android:textAppearance="?attr/textAppearanceListItem"
             android:text="@={viewModel.title}"
             tools:text="Step #" />
 
