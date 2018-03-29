@@ -1,13 +1,26 @@
 package com.guilhermefgl.icook.viewmodels;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
 import com.guilhermefgl.icook.BR;
+import com.guilhermefgl.icook.BuildConfig;
 import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.helpers.PicassoHelper;
 import com.guilhermefgl.icook.models.Step;
@@ -62,7 +75,7 @@ public class StepViewModel extends BaseObservable {
 
     @Bindable
     public boolean isHasThumbnail() {
-        return oStepThumbnail.get() != null && !oStepThumbnail.get().isEmpty();
+        return !isHasVideo() && oStepThumbnail.get() != null && !oStepThumbnail.get().isEmpty();
     }
 
     @Bindable
@@ -80,8 +93,18 @@ public class StepViewModel extends BaseObservable {
         return oStepVideo.get();
     }
 
-    @BindingAdapter("bind:imageUrl")
-    public static void loadImage(ImageView view, String imageUrl) {
+    @BindingAdapter("bind:thumbnailVisible")
+    public static void setHasThumbnail(ImageView view, int visibility) {
+        view.setVisibility(visibility);
+    }
+
+    @BindingAdapter("bind:videoVisible")
+    public static void hasVideo(PlayerView view, int visibility) {
+        view.setVisibility(visibility);
+    }
+
+    @BindingAdapter("bind:thumbnailUrl")
+    public static void loadThumbnail(ImageView view, String imageUrl) {
         if (imageUrl != null && !imageUrl.isEmpty()) {
             PicassoHelper.loadImage(
                     view.getContext(),
@@ -94,4 +117,25 @@ public class StepViewModel extends BaseObservable {
         }
     }
 
+    @BindingAdapter("bind:videoUrl")
+    public static void loadVideo(PlayerView view, String videoURL) {
+        if (videoURL == null || videoURL.isEmpty()) {
+            return;
+        }
+
+        Context context = view.getContext();
+        Uri videoUri = Uri.parse(videoURL);
+        MediaSource mediaSource = new ExtractorMediaSource(
+                videoUri,
+                new DefaultDataSourceFactory(context, Util.getUserAgent(context, BuildConfig.APPLICATION_ID)),
+                new DefaultExtractorsFactory(), null, null);
+
+        SimpleExoPlayer mExoPlayer = ExoPlayerFactory.newSimpleInstance(context, new DefaultTrackSelector());
+        mExoPlayer.prepare(mediaSource);
+        mExoPlayer.setPlayWhenReady(true);
+
+        view.setDefaultArtwork(
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_placeholder));
+        view.setPlayer(mExoPlayer);
+    }
 }

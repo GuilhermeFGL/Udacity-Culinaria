@@ -43,6 +43,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.0.2'
     implementation 'com.google.code.gson:gson:2.8.1'
+    implementation 'com.google.android.exoplayer:exoplayer:2.7.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
