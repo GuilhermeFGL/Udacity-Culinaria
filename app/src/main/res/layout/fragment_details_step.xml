@@ -9,6 +9,9 @@
         <variable
             name="viewModel"
             type="com.guilhermefgl.icook.viewmodels.StepViewModel" />
+        <variable
+            name="eventHandler"
+            type="com.guilhermefgl.icook.viewmodels.StepViewModel.EventHandler" />
     </data>
     
     <LinearLayout
@@ -19,7 +22,7 @@
         <com.google.android.exoplayer2.ui.PlayerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:videoVisible="@{viewModel.hasVideo ? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.hasVideo ? View.VISIBLE : View.GONE}"
             app:videoUrl="@{viewModel.videoUrl}"
             tools:layout_height="200dp" />
 
@@ -30,7 +33,7 @@
             android:layout_marginEnd="8dp"
             android:scaleType="fitCenter"
             android:contentDescription="@string/step_thumbnail_description"
-            app:thumbnailVisible="@{viewModel.hasThumbnail ? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.hasThumbnail ? View.VISIBLE : View.GONE}"
             app:thumbnailUrl="@{viewModel.thumbnailUrl}" />
 
         <ScrollView
@@ -56,12 +59,16 @@
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:enabled="@{viewModel.prevStepEnable}"
+                android:onClick="@{() -> eventHandler.onPrevStepClick()}"/>
 
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:enabled="@{viewModel.nextStepEnable}"
+                android:onClick="@{() -> eventHandler.onNextStepClick()}"/>
 
         </LinearLayout>
 

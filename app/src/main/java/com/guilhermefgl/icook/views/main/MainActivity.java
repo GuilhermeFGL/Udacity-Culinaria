@@ -51,7 +51,7 @@ public class MainActivity extends BaseActivity implements LoaderManager.LoaderCa
 
         int spanCount = 1;
         if (getResources().getBoolean(R.bool.isTablet)) {
-            spanCount = 4;
+            spanCount = 3;
         } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             spanCount = 2;
         }

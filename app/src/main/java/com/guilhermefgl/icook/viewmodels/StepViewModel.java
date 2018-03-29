@@ -24,16 +24,14 @@ import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.helpers.PicassoHelper;
 import com.guilhermefgl.icook.models.Step;
 
+import java.util.List;
+
 public class StepViewModel extends BaseObservable {
 
+    private List<Step> mSteps;
     private Step mStep;
+    private int mStepsPosition;
     private static PlayerLifeCycle mPlayerLifeCycle;
-
-    public StepViewModel() { }
-
-    public StepViewModel(PlayerLifeCycle playerLifeCycle) {
-        mPlayerLifeCycle = playerLifeCycle;
-    }
 
     @NonNull
     private final ObservableField<String> oStepId = new ObservableField<>();
@@ -45,6 +43,36 @@ public class StepViewModel extends BaseObservable {
     private final ObservableField<String> oStepThumbnail = new ObservableField<>();
     @NonNull
     private final ObservableField<String> oStepVideo = new ObservableField<>();
+
+    public StepViewModel() { }
+
+    public StepViewModel(PlayerLifeCycle playerLifeCycle) {
+        mPlayerLifeCycle = playerLifeCycle;
+    }
+
+    public void setSteps(List<Step> steps, int stepsPosition) {
+        mSteps = steps;
+        mStepsPosition = stepsPosition;
+        setModel(steps.get(stepsPosition));
+    }
+
+    public Step nextStep() {
+        if (isNextStepEnable()) {
+            Step currentStep = mSteps.get(++mStepsPosition);
+            setModel(currentStep);
+            return currentStep;
+        }
+        return null;
+    }
+
+    public Step prevStep() {
+        if (isPrevStepEnable()) {
+            Step currentStep = mSteps.get(--mStepsPosition);
+            setModel(currentStep);
+            return currentStep;
+        }
+        return null;
+    }
 
     public void setModel(Step step) {
         mStep = step;
@@ -90,6 +118,16 @@ public class StepViewModel extends BaseObservable {
     }
 
     @Bindable
+    public boolean isNextStepEnable() {
+        return mSteps != null && mStepsPosition < mSteps.size() - 1;
+    }
+
+    @Bindable
+    public boolean isPrevStepEnable() {
+        return mSteps != null && mStepsPosition  > 0;
+    }
+
+    @Bindable
     public String getThumbnailUrl() {
         return oStepThumbnail.get();
     }
@@ -97,16 +135,6 @@ public class StepViewModel extends BaseObservable {
     @Bindable
     public String getVideoUrl() {
         return oStepVideo.get();
-    }
-
-    @BindingAdapter("bind:thumbnailVisible")
-    public static void setHasThumbnail(ImageView view, int visibility) {
-        view.setVisibility(visibility);
-    }
-
-    @BindingAdapter("bind:videoVisible")
-    public static void hasVideo(PlayerView view, int visibility) {
-        view.setVisibility(visibility);
     }
 
     @BindingAdapter("bind:thumbnailUrl")
@@ -151,5 +179,10 @@ public class StepViewModel extends BaseObservable {
 
     public interface PlayerLifeCycle {
         void onSetupPlayer(SimpleExoPlayer exoPlayer);
+    }
+
+    public interface EventHandler {
+        void onNextStepClick();
+        void onPrevStepClick();
     }
 }

@@ -25,11 +25,12 @@ import com.guilhermefgl.icook.models.Step;
 import com.guilhermefgl.icook.viewmodels.StepViewModel;
 import com.guilhermefgl.icook.views.BaseFragment;
 
-public class StepDetailsFragment extends BaseFragment implements StepViewModel.PlayerLifeCycle {
+public class StepDetailsFragment extends BaseFragment implements StepViewModel.PlayerLifeCycle, StepViewModel.EventHandler {
 
     public static final String BUNDLE_STEP = StepDetailsFragment.class.getName().concat(".BUNDLE_STEP");
     public static final String STATE_PLAYER = StepDetailsFragment.class.getName().concat(".STATE_PLAYER");
 
+    private StepViewModel mViewModel;
     private Step mStep;
     private ExoPlayer mExoPlayer;
     private MediaSessionCompat mMediaSession;
@@ -50,14 +51,7 @@ public class StepDetailsFragment extends BaseFragment implements StepViewModel.P
 
         if (getArguments() != null && getArguments().containsKey(BUNDLE_STEP)) {
             mStep = getArguments().getParcelable(BUNDLE_STEP);
-
-            Activity activity = this.getActivity();
-            if (activity != null) {
-                CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
-                if (appBarLayout != null) {
-                    appBarLayout.setTitle(mStep.getShortDescription());
-                }
-            }
+            setupToolbar();
         }
     }
 
@@ -67,8 +61,10 @@ public class StepDetailsFragment extends BaseFragment implements StepViewModel.P
         FragmentDetailsStepBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_details_step, container, false);
 
-        binding.setViewModel(new StepViewModel(this));
-        binding.getViewModel().setModel(mStep);
+        mViewModel = new StepViewModel(this);
+        binding.setViewModel(mViewModel);
+        binding.setEventHandler(this);
+        mViewModel.setModel(mStep);
 
         return binding.getRoot();
     }
@@ -99,6 +95,30 @@ public class StepDetailsFragment extends BaseFragment implements StepViewModel.P
             if (mPlayerPosition != null) {
                 mExoPlayer.seekTo(mPlayerPosition);
                 mPlayerPosition = null;
+            }
+        }
+    }
+
+    @Override
+    public void onNextStepClick() {
+        mStep = mViewModel.nextStep();
+        setupToolbar();
+    }
+
+    @Override
+    public void onPrevStepClick() {
+        mStep = mViewModel.prevStep();
+        setupToolbar();
+    }
+
+    private void setupToolbar() {
+        if (mStep != null) {
+            Activity activity = this.getActivity();
+            if (activity != null) {
+                CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
+                if (appBarLayout != null) {
+                    appBarLayout.setTitle(mStep.getShortDescription());
+                }
             }
         }
     }
