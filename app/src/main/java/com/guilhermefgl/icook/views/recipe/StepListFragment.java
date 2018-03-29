@@ -17,13 +17,13 @@ import com.guilhermefgl.icook.views.BaseFragment;
 import com.guilhermefgl.icook.views.step.StepDetailsActivity;
 import com.guilhermefgl.icook.views.step.StepDetailsFragment;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class StepListFragment extends BaseFragment implements StepAdapter.EventHandler {
 
     public static final String BUNDLE_STEPS = StepListFragment.class.getName().concat(".BUNDLE_STEP");
 
-    private List<Step> mSteps;
+    private ArrayList<Step> mSteps;
     private boolean isTabletView;
 
     @Override
@@ -57,7 +57,8 @@ public class StepListFragment extends BaseFragment implements StepAdapter.EventH
     public void onItemClick(Step step) {
         if (isTabletView) {
             Bundle arguments = new Bundle();
-            arguments.putParcelable(StepDetailsFragment.BUNDLE_STEP, step);
+            arguments.putParcelableArrayList(StepDetailsFragment.BUNDLE_STEPS, mSteps);
+            arguments.putInt(StepDetailsFragment.BUNDLE_STEP_ID, step.getId());
             StepDetailsFragment fragment =  new StepDetailsFragment();
             fragment.setArguments(arguments);
             if (getFragmentManager() != null) {
@@ -67,7 +68,8 @@ public class StepListFragment extends BaseFragment implements StepAdapter.EventH
             }
         } else {
             Bundle extras = new Bundle();
-            extras.putParcelable(StepDetailsActivity.BUNDLE_STEP, step);
+            extras.putParcelableArrayList(StepDetailsActivity.BUNDLE_STEPS, mSteps);
+            extras.putInt(StepDetailsActivity.BUNDLE_STEP_ID, step.getId());
             StepDetailsActivity.startActivity(((BaseActivity) getActivity()), extras);
         }
     }

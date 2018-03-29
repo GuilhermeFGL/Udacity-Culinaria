@@ -11,9 +11,12 @@ import com.guilhermefgl.icook.databinding.ActivityStepDetailBinding;
 import com.guilhermefgl.icook.models.Step;
 import com.guilhermefgl.icook.views.BaseActivity;
 
+import java.util.ArrayList;
+
 public class StepDetailsActivity extends AppCompatActivity {
 
-    public static final String BUNDLE_STEP =  StepDetailsActivity.class.getName().concat(".BUNDLE_STEP");
+    public static final String BUNDLE_STEPS =  StepDetailsActivity.class.getName().concat(".BUNDLE_STEPS");
+    public static final String BUNDLE_STEP_ID =  StepDetailsActivity.class.getName().concat(".BUNDLE_STEP_ID");
     public static final String STATE_FRAGMENT = StepDetailsFragment.class.getName();
 
     private StepDetailsFragment stepDetailsFragment;
@@ -29,19 +32,19 @@ public class StepDetailsActivity extends AppCompatActivity {
                 DataBindingUtil.setContentView(this, R.layout.activity_step_detail);
         setSupportActionBar(binding.stepToolbar);
 
-        if (getIntent().getExtras() != null && getIntent().hasExtra(BUNDLE_STEP)) {
-            Step step = getIntent().getParcelableExtra(BUNDLE_STEP);
-            if (getSupportActionBar() != null) {
-                getSupportActionBar().setTitle(step.getShortDescription());
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            }
+        if (getIntent().getExtras() != null
+                && getIntent().hasExtra(BUNDLE_STEPS)
+                && getIntent().hasExtra(BUNDLE_STEP_ID)) {
+            ArrayList<Step> steps = getIntent().getParcelableArrayListExtra(BUNDLE_STEPS);
+            Integer stepId = getIntent().getIntExtra(BUNDLE_STEP_ID, 0);
             if (savedInstanceState != null && savedInstanceState.containsKey(STATE_FRAGMENT)) {
                 stepDetailsFragment = (StepDetailsFragment) getSupportFragmentManager()
                         .getFragment(savedInstanceState, STATE_FRAGMENT);
             }
             if (stepDetailsFragment == null) {
                 Bundle arguments = new Bundle();
-                arguments.putParcelable(StepDetailsFragment.BUNDLE_STEP, step);
+                arguments.putParcelableArrayList(StepDetailsFragment.BUNDLE_STEPS, steps);
+                arguments.putInt(StepDetailsFragment.BUNDLE_STEP_ID, stepId);
                 stepDetailsFragment = new StepDetailsFragment();
                 stepDetailsFragment.setArguments(arguments);
             }

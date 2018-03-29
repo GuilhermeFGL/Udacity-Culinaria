@@ -50,10 +50,12 @@ public class StepViewModel extends BaseObservable {
         mPlayerLifeCycle = playerLifeCycle;
     }
 
-    public void setSteps(List<Step> steps, int stepsPosition) {
-        mSteps = steps;
-        mStepsPosition = stepsPosition;
-        setModel(steps.get(stepsPosition));
+    public void setSteps(List<Step> steps, Integer stepsPosition) {
+        if (steps != null && !steps.isEmpty() && stepsPosition != null) {
+            mSteps = steps;
+            mStepsPosition = stepsPosition;
+            setModel(steps.get(stepsPosition));
+        }
     }
 
     public Step nextStep() {
@@ -85,6 +87,8 @@ public class StepViewModel extends BaseObservable {
         notifyPropertyChanged(BR.videoUrl);
         notifyPropertyChanged(BR.hasThumbnail);
         notifyPropertyChanged(BR.hasVideo);
+        notifyPropertyChanged(BR.nextStepEnable);
+        notifyPropertyChanged(BR.prevStepEnable);
     }
 
     @Bindable

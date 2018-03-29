@@ -25,13 +25,19 @@ import com.guilhermefgl.icook.models.Step;
 import com.guilhermefgl.icook.viewmodels.StepViewModel;
 import com.guilhermefgl.icook.views.BaseFragment;
 
+import java.util.List;
+
 public class StepDetailsFragment extends BaseFragment implements StepViewModel.PlayerLifeCycle, StepViewModel.EventHandler {
 
-    public static final String BUNDLE_STEP = StepDetailsFragment.class.getName().concat(".BUNDLE_STEP");
+    public static final String BUNDLE_STEPS = StepDetailsFragment.class.getName().concat(".BUNDLE_STEPS");
+    public static final String BUNDLE_STEP_ID = StepDetailsFragment.class.getName().concat(".BUNDLE_STEP_ID");
     public static final String STATE_PLAYER = StepDetailsFragment.class.getName().concat(".STATE_PLAYER");
 
     private StepViewModel mViewModel;
-    private Step mStep;
+    private List<Step> mSteps;
+    private Step mCurrentStep;
+    private Integer mInitialStepPosition;
+
     private ExoPlayer mExoPlayer;
     private MediaSessionCompat mMediaSession;
     private PlaybackStateCompat.Builder mStateBuilder;
@@ -49,10 +55,22 @@ public class StepDetailsFragment extends BaseFragment implements StepViewModel.P
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null && getArguments().containsKey(BUNDLE_STEP)) {
-            mStep = getArguments().getParcelable(BUNDLE_STEP);
-            setupToolbar();
+        if (getArguments() != null
+                && getArguments().containsKey(BUNDLE_STEPS)
+                && getArguments().containsKey(BUNDLE_STEP_ID)) {
+            mSteps = getArguments().getParcelableArrayList(BUNDLE_STEPS);
+            int currentStepId = getArguments().getInt(BUNDLE_STEP_ID);
+            for(int i = 0; i < mSteps.size(); i++) {
+                if (mSteps.get(i).getId() == currentStepId) {
+                    mInitialStepPosition = i;
+                    break;
+                }
+            }
+            if (mInitialStepPosition != null) {
+                mCurrentStep = mSteps.get(mInitialStepPosition);
+            }
         }
+        setupToolbar();
     }
 
     @Override
@@ -61,10 +79,12 @@ public class StepDetailsFragment extends BaseFragment implements StepViewModel.P
         FragmentDetailsStepBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_details_step, container, false);
 
-        mViewModel = new StepViewModel(this);
-        binding.setViewModel(mViewModel);
-        binding.setEventHandler(this);
-        mViewModel.setModel(mStep);
+        if (mCurrentStep != null) {
+            mViewModel = new StepViewModel(this);
+            binding.setViewModel(mViewModel);
+            binding.setEventHandler(this);
+            mViewModel.setSteps(mSteps, mInitialStepPosition);
+        }
 
         return binding.getRoot();
     }
@@ -81,7 +101,6 @@ public class StepDetailsFragment extends BaseFragment implements StepViewModel.P
     public void onDetach() {
         super.onDetach();
         releasePlayer();
-        mExoPlayer = null;
     }
 
     @Override
@@ -101,23 +120,25 @@ public class StepDetailsFragment extends BaseFragment implements StepViewModel.P
 
     @Override
     public void onNextStepClick() {
-        mStep = mViewModel.nextStep();
+        mCurrentStep = mViewModel.nextStep();
         setupToolbar();
+        releasePlayer();
     }
 
     @Override
     public void onPrevStepClick() {
-        mStep = mViewModel.prevStep();
+        mCurrentStep = mViewModel.prevStep();
         setupToolbar();
+        releasePlayer();
     }
 
     private void setupToolbar() {
-        if (mStep != null) {
+        if (mCurrentStep != null) {
             Activity activity = this.getActivity();
             if (activity != null) {
                 CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
                 if (appBarLayout != null) {
-                    appBarLayout.setTitle(mStep.getShortDescription());
+                    appBarLayout.setTitle(mCurrentStep.getShortDescription());
                 }
             }
         }
@@ -128,6 +149,7 @@ public class StepDetailsFragment extends BaseFragment implements StepViewModel.P
             mExoPlayer.stop();
             mExoPlayer.release();
         }
+        mExoPlayer = null;
     }
 
     private void initializeMediaSession() {
