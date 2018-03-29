@@ -12,11 +12,10 @@ import android.widget.ImageView;
 
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
-import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.guilhermefgl.icook.BR;
@@ -28,6 +27,13 @@ import com.guilhermefgl.icook.models.Step;
 public class StepViewModel extends BaseObservable {
 
     private Step mStep;
+    private static PlayerLifeCycle mPlayerLifeCycle;
+
+    public StepViewModel() { }
+
+    public StepViewModel(PlayerLifeCycle playerLifeCycle) {
+        mPlayerLifeCycle = playerLifeCycle;
+    }
 
     @NonNull
     private final ObservableField<String> oStepId = new ObservableField<>();
@@ -125,17 +131,25 @@ public class StepViewModel extends BaseObservable {
 
         Context context = view.getContext();
         Uri videoUri = Uri.parse(videoURL);
-        MediaSource mediaSource = new ExtractorMediaSource(
-                videoUri,
-                new DefaultDataSourceFactory(context, Util.getUserAgent(context, BuildConfig.APPLICATION_ID)),
-                new DefaultExtractorsFactory(), null, null);
+        DefaultDataSourceFactory sourceFactory = new DefaultDataSourceFactory(
+                context,
+                Util.getUserAgent(context, BuildConfig.APPLICATION_ID),
+                new DefaultBandwidthMeter());
 
-        SimpleExoPlayer mExoPlayer = ExoPlayerFactory.newSimpleInstance(context, new DefaultTrackSelector());
-        mExoPlayer.prepare(mediaSource);
-        mExoPlayer.setPlayWhenReady(true);
+        SimpleExoPlayer exoPlayer = ExoPlayerFactory.newSimpleInstance(context, new DefaultTrackSelector());
+        exoPlayer.prepare(new ExtractorMediaSource.Factory(sourceFactory).createMediaSource(videoUri));
+        exoPlayer.setPlayWhenReady(true);
 
         view.setDefaultArtwork(
                 BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_placeholder));
-        view.setPlayer(mExoPlayer);
+        view.setPlayer(exoPlayer);
+
+        if (mPlayerLifeCycle != null) {
+            mPlayerLifeCycle.onSuteupPlayer(exoPlayer);
+        }
+    }
+
+    public interface PlayerLifeCycle {
+        void onSuteupPlayer(SimpleExoPlayer playerView);
     }
 }
