@@ -8,13 +8,13 @@ import android.support.v4.content.AsyncTaskLoader;
 import com.guilhermefgl.icook.models.Recipe;
 import com.guilhermefgl.icook.services.BakingService;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class RecipeLoader extends AsyncTaskLoader<List<Recipe>> {
+public class RecipeLoader extends AsyncTaskLoader<ArrayList<Recipe>> {
 
     public static final Integer LOADER_ID = 1001;
 
-    private List<Recipe> recipesCached;
+    private ArrayList<Recipe> recipesCached;
 
     public RecipeLoader(@NonNull Context context) {
         super(context);
@@ -32,7 +32,7 @@ public class RecipeLoader extends AsyncTaskLoader<List<Recipe>> {
 
     @Nullable
     @Override
-    public List<Recipe> loadInBackground() {
+    public ArrayList<Recipe> loadInBackground() {
         try {
             return BakingService.getClient().listRecipes().execute().body();
         } catch (Exception e) {
@@ -41,7 +41,7 @@ public class RecipeLoader extends AsyncTaskLoader<List<Recipe>> {
     }
 
     @Override
-    public void deliverResult(List<Recipe> data) {
+    public void deliverResult(ArrayList<Recipe> data) {
         this.recipesCached = data;
         super.deliverResult(data);
     }

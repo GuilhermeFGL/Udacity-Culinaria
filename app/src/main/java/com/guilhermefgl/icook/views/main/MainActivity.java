@@ -19,14 +19,17 @@ import com.guilhermefgl.icook.models.Recipe;
 import com.guilhermefgl.icook.services.loaders.RecipeLoader;
 import com.guilhermefgl.icook.views.BaseActivity;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class MainActivity extends BaseActivity implements LoaderManager.LoaderCallbacks<List<Recipe>>,
+public class MainActivity extends BaseActivity implements LoaderManager.LoaderCallbacks<ArrayList<Recipe>>,
         RecipeAdapter.EventHandler, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
     private ActivityMainBinding mBinding;
     private RecipeAdapter recipeAdapter;
     private Snackbar errorSnackbar;
+    private ArrayList<Recipe> mRecipes;
+
+    private static final String STATE_RECIPE = MainActivity.class.getName().concat(".STATE_RECIPE");
 
     public static void startActivity(BaseActivity activity) {
         activity.startActivity(
@@ -57,12 +60,23 @@ public class MainActivity extends BaseActivity implements LoaderManager.LoaderCa
         mBinding.mainList.setAdapter(recipeAdapter);
         mBinding.mainRefresh.setOnRefreshListener(this);
 
-        getRecipes();
+        if(savedInstanceState == null || !savedInstanceState.containsKey(STATE_RECIPE)) {
+            getRecipes();
+        } else {
+            mRecipes = savedInstanceState.getParcelableArrayList(STATE_RECIPE);
+            recipeAdapter.setRecipes(mRecipes);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle bundle) {
+        bundle.putParcelableArrayList(STATE_RECIPE, mRecipes);
+        super.onSaveInstanceState(bundle);
     }
 
     @NonNull
     @Override
-    public Loader<List<Recipe>> onCreateLoader(int id, Bundle args) {
+    public Loader<ArrayList<Recipe>> onCreateLoader(int id, Bundle args) {
         mBinding.mainLoading.setVisibility(View.VISIBLE);
         if (errorSnackbar.isShown()) {
             errorSnackbar.dismiss();
@@ -71,7 +85,8 @@ public class MainActivity extends BaseActivity implements LoaderManager.LoaderCa
     }
 
     @Override
-    public void onLoadFinished(@NonNull Loader<List<Recipe>> loader, List<Recipe> data) {
+    public void onLoadFinished(@NonNull Loader<ArrayList<Recipe>> loader, ArrayList<Recipe> data) {
+        mRecipes = data;
         mBinding.mainLoading.setVisibility(View.GONE);
         mBinding.mainRefresh.setRefreshing(false);
         if (data != null) {
@@ -82,7 +97,7 @@ public class MainActivity extends BaseActivity implements LoaderManager.LoaderCa
     }
 
     @Override
-    public void onLoaderReset(@NonNull Loader<List<Recipe>> loader) { }
+    public void onLoaderReset(@NonNull Loader<ArrayList<Recipe>> loader) { }
 
     @Override
     public void onRefresh() {

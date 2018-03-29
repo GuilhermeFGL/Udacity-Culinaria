@@ -14,6 +14,9 @@ import com.guilhermefgl.icook.views.BaseActivity;
 public class StepDetailsActivity extends AppCompatActivity {
 
     public static final String BUNDLE_STEP =  StepDetailsActivity.class.getName().concat(".BUNDLE_STEP");
+    public static final String STATE_FRAGMENT = StepDetailsFragment.class.getName();
+
+    private StepDetailsFragment stepDetailsFragment;
 
     public static void startActivity(BaseActivity activity, Bundle extras) {
         activity.startActivity(new Intent(activity, StepDetailsActivity.class).putExtras(extras));
@@ -28,19 +31,25 @@ public class StepDetailsActivity extends AppCompatActivity {
 
         if (getIntent().getExtras() != null && getIntent().hasExtra(BUNDLE_STEP)) {
             Step step = getIntent().getParcelableExtra(BUNDLE_STEP);
-
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setTitle(step.getShortDescription());
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             }
-
-            Bundle arguments = new Bundle();
-            arguments.putParcelable(StepDetailsFragment.BUNDLE_STEP, step);
-            StepDetailsFragment fragment = new StepDetailsFragment();
-            fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.item_detail_container, fragment)
-                    .commit();
+            if (savedInstanceState != null && savedInstanceState.containsKey(STATE_FRAGMENT)) {
+                stepDetailsFragment = (StepDetailsFragment) getSupportFragmentManager()
+                        .getFragment(savedInstanceState, STATE_FRAGMENT);
+            }
+            if (stepDetailsFragment == null) {
+                Bundle arguments = new Bundle();
+                arguments.putParcelable(StepDetailsFragment.BUNDLE_STEP, step);
+                stepDetailsFragment = new StepDetailsFragment();
+                stepDetailsFragment.setArguments(arguments);
+            }
+            if (!stepDetailsFragment.isAdded()) {
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.item_detail_container, stepDetailsFragment)
+                        .commit();
+            }
         } else {
             finish();
         }
@@ -55,5 +64,11 @@ public class StepDetailsActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getSupportFragmentManager().putFragment(outState, STATE_FRAGMENT, stepDetailsFragment);
     }
 }

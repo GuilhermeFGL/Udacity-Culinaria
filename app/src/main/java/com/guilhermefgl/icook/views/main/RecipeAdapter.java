@@ -12,11 +12,11 @@ import com.guilhermefgl.icook.models.Recipe;
 import com.guilhermefgl.icook.viewmodels.RecipeViewModel;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
+import java.util.ArrayList;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdapterViewHolder> {
 
-    private List<Recipe> mRecipes;
+    private ArrayList<Recipe> mRecipes;
     private final WeakReference<EventHandler> mEventHandler;
 
     RecipeAdapter(EventHandler eventHandler) {
@@ -42,7 +42,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
         return mRecipes != null ? mRecipes.size() : 0;
     }
 
-    void setRecipes(List<Recipe> recipes) {
+    void setRecipes(ArrayList<Recipe> recipes) {
         this.mRecipes = recipes;
         notifyDataSetChanged();
     }

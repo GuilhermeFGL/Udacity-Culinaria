@@ -28,11 +28,21 @@ import com.guilhermefgl.icook.views.BaseFragment;
 public class StepDetailsFragment extends BaseFragment implements StepViewModel.PlayerLifeCycle {
 
     public static final String BUNDLE_STEP = StepDetailsFragment.class.getName().concat(".BUNDLE_STEP");
+    public static final String STATE_PLAYER = StepDetailsFragment.class.getName().concat(".STATE_PLAYER");
 
     private Step mStep;
     private ExoPlayer mExoPlayer;
     private MediaSessionCompat mMediaSession;
     private PlaybackStateCompat.Builder mStateBuilder;
+    private Long mPlayerPosition;
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null && savedInstanceState.containsKey(STATE_PLAYER)) {
+            mPlayerPosition = savedInstanceState.getLong(STATE_PLAYER);
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,13 +74,10 @@ public class StepDetailsFragment extends BaseFragment implements StepViewModel.P
     }
 
     @Override
-    public void onSuteupPlayer(SimpleExoPlayer playerView) {
-        if (isAdded()) {
-            mExoPlayer = playerView;
-            mExoPlayer.addListener(new MyPlayerListinner());
-            if (mMediaSession == null) {
-                initializeMediaSession();
-            }
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mExoPlayer != null) {
+            outState.putLong(STATE_PLAYER, mExoPlayer.getCurrentPosition());
         }
     }
 
@@ -79,6 +86,21 @@ public class StepDetailsFragment extends BaseFragment implements StepViewModel.P
         super.onDetach();
         releasePlayer();
         mExoPlayer = null;
+    }
+
+    @Override
+    public void onSetupPlayer(SimpleExoPlayer exoPlayer) {
+        if (isAdded()) {
+            mExoPlayer = exoPlayer;
+            mExoPlayer.addListener(new MyPlayerListinner());
+            if (mMediaSession == null) {
+                initializeMediaSession();
+            }
+            if (mPlayerPosition != null) {
+                mExoPlayer.seekTo(mPlayerPosition);
+                mPlayerPosition = null;
+            }
+        }
     }
 
     private void releasePlayer() {

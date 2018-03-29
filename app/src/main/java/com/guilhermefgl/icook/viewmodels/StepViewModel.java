@@ -145,11 +145,11 @@ public class StepViewModel extends BaseObservable {
         view.setPlayer(exoPlayer);
 
         if (mPlayerLifeCycle != null) {
-            mPlayerLifeCycle.onSuteupPlayer(exoPlayer);
+            mPlayerLifeCycle.onSetupPlayer(exoPlayer);
         }
     }
 
     public interface PlayerLifeCycle {
-        void onSuteupPlayer(SimpleExoPlayer playerView);
+        void onSetupPlayer(SimpleExoPlayer exoPlayer);
     }
 }

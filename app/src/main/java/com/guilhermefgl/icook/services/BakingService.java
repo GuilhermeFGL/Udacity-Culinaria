@@ -3,7 +3,7 @@ package com.guilhermefgl.icook.services;
 import com.guilhermefgl.icook.BuildConfig;
 import com.guilhermefgl.icook.models.Recipe;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -39,6 +39,6 @@ public class BakingService {
     public interface BakingServiceClient {
 
         @GET("baking.json")
-        Call<List<Recipe>> listRecipes();
+        Call<ArrayList<Recipe>> listRecipes();
     }
 }
