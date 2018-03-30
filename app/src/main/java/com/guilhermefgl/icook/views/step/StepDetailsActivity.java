@@ -31,6 +31,9 @@ public class StepDetailsActivity extends AppCompatActivity {
         ActivityStepDetailBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_step_detail);
         setSupportActionBar(binding.stepToolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         if (getIntent().getExtras() != null
                 && getIntent().hasExtra(BUNDLE_STEPS)

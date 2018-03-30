@@ -17,12 +17,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical">
 
         <com.google.android.exoplayer2.ui.PlayerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="@{viewModel.hasVideo ? View.VISIBLE : View.GONE}"
+            app:resize_mode="fixed_width"
             app:videoUrl="@{viewModel.videoUrl}"
             tools:layout_height="200dp" />
 
@@ -39,6 +41,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:minHeight="200dp"
             android:layout_weight="1">
 
             <TextView
@@ -60,15 +63,23 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:text="@string/step_prev"
+                android:drawableLeft="@drawable/icon_prev"
+                android:drawableStart="@drawable/icon_prev"
                 android:enabled="@{viewModel.prevStepEnable}"
-                android:onClick="@{() -> eventHandler.onPrevStepClick()}"/>
+                android:onClick="@{() -> eventHandler.onPrevStepClick()}"
+                tools:ignore="ButtonStyle" />
 
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:text="@string/step_next"
+                android:drawableRight="@drawable/icon_next"
+                android:drawableEnd="@drawable/icon_next"
                 android:enabled="@{viewModel.nextStepEnable}"
-                android:onClick="@{() -> eventHandler.onNextStepClick()}"/>
+                android:onClick="@{() -> eventHandler.onNextStepClick()}"
+                tools:ignore="ButtonStyle" />
 
         </LinearLayout>
 

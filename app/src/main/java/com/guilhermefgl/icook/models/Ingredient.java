@@ -4,12 +4,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-@SuppressWarnings({"WeakerAccess", "unused"})
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class Ingredient implements Parcelable {
 
-    Double quantity;
-    String measure;
-    String ingredient;
+    private Double quantity;
+    private String measure;
+    private String ingredient;
 
     public Double getQuantity() {
         return quantity;

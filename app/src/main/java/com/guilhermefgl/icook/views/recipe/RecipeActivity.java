@@ -32,6 +32,10 @@ public class RecipeActivity extends BaseActivity {
                     new ViewAdapter(getSupportFragmentManager(), this, recipe));
             biding.detailsTab.setupWithViewPager(biding.detailsPager);
 
+            if (getResources().getBoolean(R.bool.isTablet)) {
+                biding.appBar.setExpanded(false);
+            }
+
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setTitle(recipe.getName());
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);

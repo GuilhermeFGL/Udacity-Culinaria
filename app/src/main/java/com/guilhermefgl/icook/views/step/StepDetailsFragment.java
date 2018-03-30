@@ -27,16 +27,19 @@ import com.guilhermefgl.icook.views.BaseFragment;
 
 import java.util.List;
 
-public class StepDetailsFragment extends BaseFragment implements StepViewModel.PlayerLifeCycle, StepViewModel.EventHandler {
+public class StepDetailsFragment extends BaseFragment
+        implements StepViewModel.PlayerLifeCycle, StepViewModel.EventHandler {
 
     public static final String BUNDLE_STEPS = StepDetailsFragment.class.getName().concat(".BUNDLE_STEPS");
     public static final String BUNDLE_STEP_ID = StepDetailsFragment.class.getName().concat(".BUNDLE_STEP_ID");
     public static final String STATE_PLAYER = StepDetailsFragment.class.getName().concat(".STATE_PLAYER");
+    public static final String STATE_STEP = StepDetailsFragment.class.getName().concat(".STATE_STEP");
 
+    private FragmentDetailsStepBinding mBinding;
     private StepViewModel mViewModel;
     private List<Step> mSteps;
     private Step mCurrentStep;
-    private Integer mInitialStepPosition;
+    private Integer mCurrentStepId;
 
     private ExoPlayer mExoPlayer;
     private MediaSessionCompat mMediaSession;
@@ -44,54 +47,57 @@ public class StepDetailsFragment extends BaseFragment implements StepViewModel.P
     private Long mPlayerPosition;
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if (savedInstanceState != null && savedInstanceState.containsKey(STATE_PLAYER)) {
-            mPlayerPosition = savedInstanceState.getLong(STATE_PLAYER);
-        }
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null
-                && getArguments().containsKey(BUNDLE_STEPS)
-                && getArguments().containsKey(BUNDLE_STEP_ID)) {
-            mSteps = getArguments().getParcelableArrayList(BUNDLE_STEPS);
-            int currentStepId = getArguments().getInt(BUNDLE_STEP_ID);
-            for(int i = 0; i < mSteps.size(); i++) {
-                if (mSteps.get(i).getId() == currentStepId) {
-                    mInitialStepPosition = i;
-                    break;
-                }
+        if (getArguments() != null) {
+            if (getArguments().containsKey(BUNDLE_STEPS)) {
+                mSteps = getArguments().getParcelableArrayList(BUNDLE_STEPS);
             }
-            if (mInitialStepPosition != null) {
-                mCurrentStep = mSteps.get(mInitialStepPosition);
+            if (getArguments().containsKey(BUNDLE_STEP_ID)) {
+                mCurrentStepId = getArguments().getInt(BUNDLE_STEP_ID);
             }
         }
-        setupToolbar();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        FragmentDetailsStepBinding binding = DataBindingUtil.inflate(
+        mBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_details_step, container, false);
+        return mBinding.getRoot();
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(STATE_STEP)) {
+                mCurrentStepId = savedInstanceState.getInt(STATE_STEP);
+            }
+            if (savedInstanceState.containsKey(STATE_PLAYER)) {
+                mPlayerPosition = savedInstanceState.getLong(STATE_PLAYER);
+            }
+        }
+
+        if (mSteps != null && !mSteps.isEmpty() && mCurrentStepId != null) {
+            mCurrentStep = Step.getStepById(mSteps, mCurrentStepId);
+        }
 
         if (mCurrentStep != null) {
             mViewModel = new StepViewModel(this);
-            binding.setViewModel(mViewModel);
-            binding.setEventHandler(this);
-            mViewModel.setSteps(mSteps, mInitialStepPosition);
+            mBinding.setViewModel(mViewModel);
+            mBinding.setEventHandler(this);
+            mViewModel.setSteps(mSteps, mCurrentStep.getId());
+            setupToolbar();
         }
-
-        return binding.getRoot();
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putInt(STATE_STEP, mCurrentStep.getId());
         if (mExoPlayer != null) {
             outState.putLong(STATE_PLAYER, mExoPlayer.getCurrentPosition());
         }
@@ -107,7 +113,7 @@ public class StepDetailsFragment extends BaseFragment implements StepViewModel.P
     public void onSetupPlayer(SimpleExoPlayer exoPlayer) {
         if (isAdded()) {
             mExoPlayer = exoPlayer;
-            mExoPlayer.addListener(new MyPlayerListinner());
+            mExoPlayer.addListener(new MyPlayerListener());
             if (mMediaSession == null) {
                 initializeMediaSession();
             }
@@ -173,7 +179,7 @@ public class StepDetailsFragment extends BaseFragment implements StepViewModel.P
         }
     }
 
-    private class MyPlayerListinner implements Player.EventListener {
+    private class MyPlayerListener implements Player.EventListener {
 
         @Override
         public void onTimelineChanged(Timeline timeline, Object manifest, int reason) { }

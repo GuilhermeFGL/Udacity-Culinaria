@@ -15,8 +15,9 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/step_list"
-            android:layout_width="@dimen/item_width"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:layout_marginTop="8dp"
             app:layoutManager="LinearLayoutManager"
             tools:context="com.guilhermefgl.icook.views.recipe.RecipeActivity"
@@ -26,7 +27,9 @@
             android:id="@+id/item_detail_container"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3" />
+            android:layout_weight="3"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp" />
 
     </LinearLayout>
 

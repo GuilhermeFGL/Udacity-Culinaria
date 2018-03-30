@@ -17,6 +17,8 @@
 
     <!-- STEP ACTIVITY/FRAGMENT -->
     <string name="step_thumbnail_description">recipe thumbnail</string>
+    <string name="step_prev">prev step</string>
+    <string name="step_next">next step</string>
 
     <!-- GERAL -->
     <bool name="isTablet">false</bool>

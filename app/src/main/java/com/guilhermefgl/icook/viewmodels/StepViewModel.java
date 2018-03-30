@@ -50,11 +50,13 @@ public class StepViewModel extends BaseObservable {
         mPlayerLifeCycle = playerLifeCycle;
     }
 
-    public void setSteps(List<Step> steps, Integer stepsPosition) {
-        if (steps != null && !steps.isEmpty() && stepsPosition != null) {
+    public void setSteps(List<Step> steps, Integer stepsId) {
+        if (steps != null && !steps.isEmpty() && stepsId != null) {
             mSteps = steps;
-            mStepsPosition = stepsPosition;
-            setModel(steps.get(stepsPosition));
+            mStepsPosition = Step.getPositionById(steps, stepsId);
+            if (mStepsPosition > -1) {
+                setModel(steps.get(mStepsPosition));
+            }
         }
     }
 

@@ -11,6 +11,7 @@
         <item name="android:textColorSecondary">@color/secondary_text</item>
         <item name="android:scrollbarThumbVertical">@color/divider</item>
         <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
+        <item name="android:windowBackground">@android:color/white</item>
 
         <item name="android:buttonStyle">@style/ButtonDefault</item>
         <item name="android:borderlessButtonStyle">@style/FlatButton</item>
@@ -33,6 +34,7 @@
 
     <style name="ButtonDefault" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/accent</item>
+        <item name="android:textColor">@color/icons</item>
     </style>
 
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">

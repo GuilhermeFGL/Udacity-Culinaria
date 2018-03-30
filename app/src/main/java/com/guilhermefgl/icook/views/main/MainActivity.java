@@ -26,7 +26,7 @@ public class MainActivity extends BaseActivity implements LoaderManager.LoaderCa
 
     private ActivityMainBinding mBinding;
     private RecipeAdapter recipeAdapter;
-    private Snackbar errorSnackbar;
+    private Snackbar errorSnackBar;
     private ArrayList<Recipe> mRecipes;
 
     private static final String STATE_RECIPE = MainActivity.class.getName().concat(".STATE_RECIPE");
@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity implements LoaderManager.LoaderCa
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setSupportActionBar(mBinding.mainToolbar);
 
-        errorSnackbar = Snackbar.make(
+        errorSnackBar = Snackbar.make(
                 mBinding.mainLayout,
                 R.string.error_main_connection_msg,
                 Snackbar.LENGTH_INDEFINITE)
@@ -60,11 +60,11 @@ public class MainActivity extends BaseActivity implements LoaderManager.LoaderCa
         mBinding.mainList.setAdapter(recipeAdapter);
         mBinding.mainRefresh.setOnRefreshListener(this);
 
-        if(savedInstanceState == null || !savedInstanceState.containsKey(STATE_RECIPE)) {
-            getRecipes();
-        } else {
+        if(savedInstanceState != null && savedInstanceState.containsKey(STATE_RECIPE)) {
             mRecipes = savedInstanceState.getParcelableArrayList(STATE_RECIPE);
             recipeAdapter.setRecipes(mRecipes);
+        } else {
+            getRecipes();
         }
     }
 
@@ -78,8 +78,8 @@ public class MainActivity extends BaseActivity implements LoaderManager.LoaderCa
     @Override
     public Loader<ArrayList<Recipe>> onCreateLoader(int id, Bundle args) {
         mBinding.mainLoading.setVisibility(View.VISIBLE);
-        if (errorSnackbar.isShown()) {
-            errorSnackbar.dismiss();
+        if (errorSnackBar.isShown()) {
+            errorSnackBar.dismiss();
         }
         return new RecipeLoader(MainActivity.this);
     }
@@ -92,7 +92,7 @@ public class MainActivity extends BaseActivity implements LoaderManager.LoaderCa
         if (data != null) {
             recipeAdapter.setRecipes(data);
         } else {
-            errorSnackbar.show();
+            errorSnackBar.show();
         }
     }
 
@@ -125,7 +125,7 @@ public class MainActivity extends BaseActivity implements LoaderManager.LoaderCa
                 loaderManager.restartLoader(RecipeLoader.LOADER_ID, null, this);
             }
         } else {
-            errorSnackbar.show();
+            errorSnackBar.show();
         }
     }
 }

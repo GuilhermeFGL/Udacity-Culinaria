@@ -3,6 +3,9 @@ package com.guilhermefgl.icook.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
+import java.util.List;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class Step implements Parcelable {
@@ -73,6 +76,25 @@ public class Step implements Parcelable {
         description = in.readString();
         videoURL = in.readString();
         thumbnailURL = in.readString();
+    }
+
+    @Nullable
+    public static Step getStepById(List<Step> steps, int stepId) {
+        for (Step step : steps) {
+            if (step.getId() == stepId) {
+                return step;
+            }
+        }
+        return null;
+    }
+
+    public static int getPositionById(List<Step> steps, int stepId) {
+        for(int i = 0; i < steps.size(); i++) {
+            if (steps.get(i).getId() == stepId) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public static final Parcelable.Creator<Step> CREATOR = new Parcelable.Creator<Step>() {
