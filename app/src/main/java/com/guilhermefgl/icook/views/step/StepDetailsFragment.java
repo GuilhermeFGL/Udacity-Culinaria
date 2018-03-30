@@ -1,10 +1,8 @@
 package com.guilhermefgl.icook.views.step;
 
-import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.view.LayoutInflater;
@@ -23,6 +21,7 @@ import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.databinding.FragmentDetailsStepBinding;
 import com.guilhermefgl.icook.models.Step;
 import com.guilhermefgl.icook.viewmodels.StepViewModel;
+import com.guilhermefgl.icook.views.BaseActivity;
 import com.guilhermefgl.icook.views.BaseFragment;
 
 import java.util.List;
@@ -32,8 +31,8 @@ public class StepDetailsFragment extends BaseFragment
 
     public static final String BUNDLE_STEPS = StepDetailsFragment.class.getName().concat(".BUNDLE_STEPS");
     public static final String BUNDLE_STEP_ID = StepDetailsFragment.class.getName().concat(".BUNDLE_STEP_ID");
-    public static final String STATE_PLAYER = StepDetailsFragment.class.getName().concat(".STATE_PLAYER");
-    public static final String STATE_STEP = StepDetailsFragment.class.getName().concat(".STATE_STEP");
+    private static final String STATE_PLAYER = StepDetailsFragment.class.getName().concat(".STATE_PLAYER");
+    private static final String STATE_STEP = StepDetailsFragment.class.getName().concat(".STATE_STEP");
 
     private FragmentDetailsStepBinding mBinding;
     private StepViewModel mViewModel;
@@ -90,8 +89,9 @@ public class StepDetailsFragment extends BaseFragment
             mBinding.setViewModel(mViewModel);
             mBinding.setEventHandler(this);
             mViewModel.setSteps(mSteps, mCurrentStep.getId());
-            setupToolbar();
         }
+
+        setupToolbar();
     }
 
     @Override
@@ -140,12 +140,9 @@ public class StepDetailsFragment extends BaseFragment
 
     private void setupToolbar() {
         if (mCurrentStep != null) {
-            Activity activity = this.getActivity();
+            BaseActivity activity = (BaseActivity) this.getActivity();
             if (activity != null) {
-                CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
-                if (appBarLayout != null) {
-                    appBarLayout.setTitle(mCurrentStep.getShortDescription());
-                }
+                activity.setTitle(mCurrentStep.getShortDescription());
             }
         }
     }

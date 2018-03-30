@@ -3,7 +3,6 @@ package com.guilhermefgl.icook.views.step;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.guilhermefgl.icook.R;
@@ -13,11 +12,11 @@ import com.guilhermefgl.icook.views.BaseActivity;
 
 import java.util.ArrayList;
 
-public class StepDetailsActivity extends AppCompatActivity {
+public class StepDetailsActivity extends BaseActivity {
 
     public static final String BUNDLE_STEPS =  StepDetailsActivity.class.getName().concat(".BUNDLE_STEPS");
     public static final String BUNDLE_STEP_ID =  StepDetailsActivity.class.getName().concat(".BUNDLE_STEP_ID");
-    public static final String STATE_FRAGMENT = StepDetailsFragment.class.getName();
+    private static final String STATE_FRAGMENT = StepDetailsFragment.class.getName();
 
     private StepDetailsFragment stepDetailsFragment;
 

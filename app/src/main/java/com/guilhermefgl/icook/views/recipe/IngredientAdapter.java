@@ -41,7 +41,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
 
     class IngredientViewHolder extends RecyclerView.ViewHolder {
 
-        private ItemRecipeIngredientBinding mBinding;
+        private final ItemRecipeIngredientBinding mBinding;
 
         IngredientViewHolder(ItemRecipeIngredientBinding binding) {
             super(binding.getRoot());

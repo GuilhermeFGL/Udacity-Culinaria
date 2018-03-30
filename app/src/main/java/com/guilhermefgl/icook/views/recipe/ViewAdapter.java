@@ -9,10 +9,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.models.Recipe;
 
-public class ViewAdapter extends FragmentPagerAdapter {
+class ViewAdapter extends FragmentPagerAdapter {
 
-    private String[] tabTitles;
-    private Recipe mRecipe;
+    private final String[] tabTitles;
+    private final Recipe mRecipe;
 
     ViewAdapter(FragmentManager fm, Context context, Recipe recipe) {
         super(fm);

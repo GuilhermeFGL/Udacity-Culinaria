@@ -55,12 +55,7 @@ public class RecipeViewModel extends BaseObservable {
     @BindingAdapter("bind:imageUrl")
     public static void loadImage(ImageView view, String imageUrl) {
         if (imageUrl != null && !imageUrl.isEmpty()) {
-            PicassoHelper.loadImage(
-                    view.getContext(),
-                    imageUrl,
-                    view,
-                    R.drawable.icon_placeholder,
-                    R.drawable.icon_connection_error);
+            PicassoHelper.loadImage(view.getContext(), imageUrl, view);
         } else {
             view.setImageResource(R.drawable.icon_placeholder);
         }

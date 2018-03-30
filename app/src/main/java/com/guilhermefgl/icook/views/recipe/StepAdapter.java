@@ -45,7 +45,7 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
 
     class StepViewHolder extends RecyclerView.ViewHolder {
 
-        private ItemRecipeStepBinding mBinding;
+        private final ItemRecipeStepBinding mBinding;
 
         StepViewHolder(ItemRecipeStepBinding binding) {
             super(binding.getRoot());

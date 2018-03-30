@@ -49,7 +49,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
 
     class RecipeAdapterViewHolder extends RecyclerView.ViewHolder {
 
-        private ItemMainRecipeBinding mBinding;
+        private final ItemMainRecipeBinding mBinding;
 
         RecipeAdapterViewHolder(ItemMainRecipeBinding binding) {
             super(binding.getRoot());
