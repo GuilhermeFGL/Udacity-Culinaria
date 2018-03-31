@@ -20,6 +20,11 @@
     <string name="step_prev">prev step</string>
     <string name="step_next">next step</string>
 
+    <!-- WIDGET -->
+    <string name="widget_default_title">My recipe ingredients</string>
+    <string name="widget_empty_label">Add a list of recipes by clicking at the button</string>
+    <string name="widget_empty_action_description">action add widget</string>
+
     <!-- GERAL -->
     <bool name="isTablet">false</bool>
 
