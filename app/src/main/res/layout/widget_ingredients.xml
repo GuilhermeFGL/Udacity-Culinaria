@@ -1,50 +1,52 @@
-<layout xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_light">
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/widget_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@color/primary"
+        android:contentDescription="@string/widget_default_title"
+        android:text="@string/widget_default_title"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/widget_empty_layout"
+        android:layout_below="@+id/widget_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primary_light">
+        android:orientation="vertical"
+        android:gravity="center"
+        tools:ignore="UseCompoundDrawables">
 
         <TextView
-            android:id="@+id/widget_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:background="@color/primary"
-            android:contentDescription="@string/widget_default_title"
-            android:text="@string/widget_default_title"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:id="@+id/widget_emptyLayout"
-            android:layout_below="@+id/widget_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
             android:gravity="center"
-            tools:ignore="UseCompoundDrawables">
+            android:text="@string/widget_empty_label" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:gravity="center"
-                android:text="@string/widget_empty_label" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="@drawable/shape_rounded"
+            android:contentDescription="@string/widget_empty_action_description"
+            android:src="@drawable/icon_widget_selector" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:background="@drawable/shape_rounded"
-                android:contentDescription="@string/widget_empty_action_description"
-                android:src="@drawable/icon_widget_selector" />
+    </LinearLayout>
 
-        </LinearLayout>
+    <ListView
+        android:id="@+id/widget_recipe_layout"
+        android:layout_below="@+id/widget_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp" />
 
-    </RelativeLayout>
-
-</layout>
+</RelativeLayout>

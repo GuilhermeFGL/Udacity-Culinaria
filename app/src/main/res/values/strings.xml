@@ -10,6 +10,8 @@
     <!-- RECIPE ACTIVITY -->
     <string name="recipe_fab_description">show in widget</string>
     <string name="recipe_ingredient_list_quantity">%1$s %2$s</string>
+    <string name="recipe_widget_success">Recipe added to your widget</string>
+    <string name="recipe_widget_error">Not possible to add widget</string>
     <string-array name="details_tab_title">
         <item>Steps</item>
         <item>Ingredients</item>
@@ -22,7 +24,7 @@
 
     <!-- WIDGET -->
     <string name="widget_default_title">My recipe ingredients</string>
-    <string name="widget_empty_label">Add a list of recipes by clicking at the button</string>
+    <string name="widget_empty_label">Add a list of ingredients by clicking at the button</string>
     <string name="widget_empty_action_description">action add widget</string>
 
     <!-- GERAL -->
