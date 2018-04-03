@@ -56,7 +56,7 @@
         </receiver>
 
         <service
-            android:name=".views.widget.ListWidgetService"
+            android:name=".views.widget.ListWidgetFactoryService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 

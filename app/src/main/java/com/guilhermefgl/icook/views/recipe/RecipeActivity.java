@@ -10,9 +10,11 @@ import android.widget.Toast;
 import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.databinding.ActivityRecipeBinding;
 import com.guilhermefgl.icook.models.Recipe;
+import com.guilhermefgl.icook.services.tasks.SaveCurrentWidgetRecipe;
 import com.guilhermefgl.icook.views.BaseActivity;
 
-public class RecipeActivity extends BaseActivity implements View.OnClickListener {
+public class RecipeActivity extends BaseActivity
+        implements View.OnClickListener, SaveCurrentWidgetRecipe.SaveRecipeCallBack {
 
     public static final String BUNDLE_RECIPE =  RecipeActivity.class.getName().concat(".BUNDLE_RECIPE");
 
@@ -64,9 +66,16 @@ public class RecipeActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if (mRecipe != null) {
-            Toast.makeText(this, R.string.recipe_widget_success, Toast.LENGTH_LONG).show();
+            new SaveCurrentWidgetRecipe(getApplicationContext(), this).execute(mRecipe);
         } else {
             Toast.makeText(this, R.string.recipe_widget_error, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onSave(Recipe recipe) {
+        if (recipe != null) {
+            Toast.makeText(this, R.string.recipe_widget_success, Toast.LENGTH_LONG).show();
         }
     }
 }

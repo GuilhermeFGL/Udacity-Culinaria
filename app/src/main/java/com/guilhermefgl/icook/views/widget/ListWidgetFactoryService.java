@@ -6,11 +6,12 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.guilhermefgl.icook.R;
+import com.guilhermefgl.icook.models.DataBase;
 import com.guilhermefgl.icook.models.Ingredient;
 
 import java.util.List;
 
-public class ListWidgetService extends RemoteViewsService {
+public class ListWidgetFactoryService extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
@@ -30,7 +31,9 @@ public class ListWidgetService extends RemoteViewsService {
         public void onCreate() { }
 
         @Override
-        public void onDataSetChanged() { }
+        public void onDataSetChanged() {
+            mIngredients = DataBase.getInstance(getApplicationContext()).ingredientDao().getAll();
+        }
 
         @Override
         public void onDestroy() {

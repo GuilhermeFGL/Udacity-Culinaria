@@ -17,7 +17,7 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_ingredients);
         views.setTextViewText(R.id.widget_title, context.getString(R.string.widget_default_title));
         views.setEmptyView(R.id.widget_recipe_layout, R.id.widget_empty_layout);
-        views.setRemoteAdapter(R.id.widget_recipe_layout, new Intent(context, ListWidgetService.class));
+        views.setRemoteAdapter(R.id.widget_recipe_layout, new Intent(context, ListWidgetFactoryService.class));
 
         Bundle extras = new Bundle();
         extras.putParcelable(RecipeActivity.BUNDLE_RECIPE, null);

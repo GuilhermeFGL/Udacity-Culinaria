@@ -1,20 +1,29 @@
 package com.guilhermefgl.icook.models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 
+@Entity
 @SuppressWarnings("unused")
 public class Recipe implements Parcelable {
 
+    @PrimaryKey
     private Integer id;
     private String name;
     private Integer servings;
     private String image;
+    @Ignore
     private ArrayList<Ingredient> ingredients;
+    @Ignore
     private ArrayList<Step> steps;
+
+    public Recipe() { }
 
     public Integer getId() {
         return id;
