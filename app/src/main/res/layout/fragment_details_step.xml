@@ -31,7 +31,6 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
             android:layout_marginEnd="8dp"
             android:scaleType="fitCenter"
             android:contentDescription="@string/step_thumbnail_description"
@@ -64,7 +63,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/step_prev"
-                android:drawableLeft="@drawable/icon_prev"
                 android:drawableStart="@drawable/icon_prev"
                 android:enabled="@{viewModel.prevStepEnable}"
                 android:onClick="@{() -> eventHandler.onPrevStepClick()}"
@@ -75,7 +73,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/step_next"
-                android:drawableRight="@drawable/icon_next"
                 android:drawableEnd="@drawable/icon_next"
                 android:enabled="@{viewModel.nextStepEnable}"
                 android:onClick="@{() -> eventHandler.onNextStepClick()}"

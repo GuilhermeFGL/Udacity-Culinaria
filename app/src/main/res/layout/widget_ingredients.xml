@@ -2,8 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_recipe_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/primary_light">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/widget_title"
@@ -24,6 +23,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
+        android:background="@color/primary_light"
         tools:ignore="UseCompoundDrawables">
 
         <TextView
@@ -47,6 +47,7 @@
         android:id="@+id/widget_recipe_list"
         android:layout_below="@+id/widget_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_widget_ingredient"/>
 
 </RelativeLayout>

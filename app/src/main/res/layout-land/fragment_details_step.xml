@@ -1,0 +1,92 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.guilhermefgl.icook.views.step.StepDetailsFragment">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.guilhermefgl.icook.viewmodels.StepViewModel" />
+        <variable
+            name="eventHandler"
+            type="com.guilhermefgl.icook.viewmodels.StepViewModel.EventHandler" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.hasVideo ? View.VISIBLE : View.GONE}"
+            app:resize_mode="fixed_width"
+            app:videoUrl="@{viewModel.videoUrl}"
+            tools:layout_height="200dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.hasVideo ? View.GONE : View.VISIBLE}">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/step_thumbnail_description"
+                android:visibility="@{viewModel.hasThumbnail ? View.VISIBLE : View.GONE}"
+                app:thumbnailUrl="@{viewModel.thumbnailUrl}" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:minHeight="200dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:lineSpacingExtra=".35dp"
+                    android:text="@={viewModel.description}"
+                    tools:text="description of step #" />
+
+            </ScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/step_prev"
+                    android:drawableStart="@drawable/icon_prev"
+                    android:enabled="@{viewModel.prevStepEnable}"
+                    android:onClick="@{() -> eventHandler.onPrevStepClick()}"
+                    tools:ignore="ButtonStyle" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/step_next"
+                    android:drawableEnd="@drawable/icon_next"
+                    android:enabled="@{viewModel.nextStepEnable}"
+                    android:onClick="@{() -> eventHandler.onNextStepClick()}"
+                    tools:ignore="ButtonStyle" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>
