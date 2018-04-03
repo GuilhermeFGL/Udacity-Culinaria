@@ -1,17 +1,25 @@
 package com.guilhermefgl.icook.models;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-@Entity
+import static android.arch.persistence.room.ForeignKey.CASCADE;
+
+@Entity(foreignKeys = @ForeignKey(
+        entity = Recipe.class,
+        parentColumns = "id",
+        childColumns = "recipeId",
+        onDelete = CASCADE))
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Ingredient implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
+    private int recipeId;
     private Double quantity;
     private String measure;
     private String ingredient;
@@ -24,6 +32,14 @@ public class Ingredient implements Parcelable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(int recipeId) {
+        this.recipeId = recipeId;
     }
 
     public Double getQuantity() {
@@ -58,6 +74,7 @@ public class Ingredient implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
+        dest.writeInt(recipeId);
         dest.writeDouble(quantity);
         dest.writeString(measure);
         dest.writeString(ingredient);
@@ -65,6 +82,7 @@ public class Ingredient implements Parcelable {
 
     private Ingredient(Parcel in) {
         id = in.readInt();
+        recipeId = in.readInt();
         quantity = in.readDouble();
         measure = in.readString();
         ingredient = in.readString();

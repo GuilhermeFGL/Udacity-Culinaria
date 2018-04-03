@@ -5,6 +5,8 @@ import android.app.Application;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
+import pl.com.salsoft.sqlitestudioremote.SQLiteStudioService;
+
 public class ICookApplication extends Application {
 
     @Override
@@ -12,6 +14,9 @@ public class ICookApplication extends Application {
         super.onCreate();
 
         setPicasso();
+        if (BuildConfig.DEBUG) {
+            SQLiteStudioService.instance().start(this);
+        }
     }
 
     public void setPicasso() {

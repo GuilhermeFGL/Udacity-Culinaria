@@ -18,7 +18,4 @@ public interface IngredientDao {
     @Insert
     void insertAll(ArrayList<Ingredient> ingredients);
 
-    @Query("DELETE FROM ingredient")
-    void clear();
-
 }

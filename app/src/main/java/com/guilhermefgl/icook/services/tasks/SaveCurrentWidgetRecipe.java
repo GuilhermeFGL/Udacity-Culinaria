@@ -4,7 +4,10 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.guilhermefgl.icook.models.DataBase;
+import com.guilhermefgl.icook.models.Ingredient;
 import com.guilhermefgl.icook.models.Recipe;
+
+import java.util.ArrayList;
 
 public class SaveCurrentWidgetRecipe extends AsyncTask<Recipe, Void, Recipe> {
 
@@ -22,8 +25,11 @@ public class SaveCurrentWidgetRecipe extends AsyncTask<Recipe, Void, Recipe> {
         if (recipe != null) {
             mDb.recipeDao().clear();
             mDb.recipeDao().insert(recipe);
-            mDb.ingredientDao().clear();
-            mDb.ingredientDao().insertAll(recipe.getIngredients());
+            ArrayList<Ingredient> ingredientList = recipe.getIngredients();
+            for(Ingredient ingredient : ingredientList) {
+                ingredient.setRecipeId(recipe.getId());
+            }
+            mDb.ingredientDao().insertAll(ingredientList);
         }
         return recipe;
     }
