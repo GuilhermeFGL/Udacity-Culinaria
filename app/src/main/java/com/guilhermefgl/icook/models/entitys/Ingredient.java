@@ -1,7 +1,8 @@
-package com.guilhermefgl.icook.models;
+package com.guilhermefgl.icook.models.entitys;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;

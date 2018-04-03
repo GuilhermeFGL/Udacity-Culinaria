@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.guilhermefgl.icook.BR;
 import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.helpers.PicassoHelper;
-import com.guilhermefgl.icook.models.Recipe;
+import com.guilhermefgl.icook.models.entitys.Recipe;
 
 public class RecipeViewModel extends BaseObservable {
 

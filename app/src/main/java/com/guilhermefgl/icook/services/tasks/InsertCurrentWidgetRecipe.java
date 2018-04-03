@@ -4,17 +4,18 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.guilhermefgl.icook.models.DataBase;
-import com.guilhermefgl.icook.models.Ingredient;
-import com.guilhermefgl.icook.models.Recipe;
+import com.guilhermefgl.icook.models.entitys.Ingredient;
+import com.guilhermefgl.icook.models.entitys.Recipe;
+import com.guilhermefgl.icook.models.entitys.Step;
 
 import java.util.ArrayList;
 
-public class SaveCurrentWidgetRecipe extends AsyncTask<Recipe, Void, Recipe> {
+public class InsertCurrentWidgetRecipe extends AsyncTask<Recipe, Void, Recipe> {
 
     private DataBase mDb;
     private SaveRecipeCallBack mCallBack;
 
-    public SaveCurrentWidgetRecipe(Context context, SaveRecipeCallBack callBack) {
+    public InsertCurrentWidgetRecipe(Context context, SaveRecipeCallBack callBack) {
         mDb = DataBase.getInstance(context);
         mCallBack = callBack;
     }
@@ -25,11 +26,18 @@ public class SaveCurrentWidgetRecipe extends AsyncTask<Recipe, Void, Recipe> {
         if (recipe != null) {
             mDb.recipeDao().clear();
             mDb.recipeDao().insert(recipe);
+
             ArrayList<Ingredient> ingredientList = recipe.getIngredients();
             for(Ingredient ingredient : ingredientList) {
                 ingredient.setRecipeId(recipe.getId());
             }
             mDb.ingredientDao().insertAll(ingredientList);
+
+            ArrayList<Step> stepList = recipe.getSteps();
+            for(Step step : stepList) {
+                step.setRecipeId(recipe.getId());
+            }
+            mDb.stepDao().insertAll(stepList);
         }
         return recipe;
     }

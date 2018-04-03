@@ -1,4 +1,4 @@
-package com.guilhermefgl.icook.models;
+package com.guilhermefgl.icook.models.entitys;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;

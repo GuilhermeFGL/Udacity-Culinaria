@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.guilhermefgl.icook.R;
-import com.guilhermefgl.icook.models.Recipe;
+import com.guilhermefgl.icook.models.entitys.Recipe;
 
 class ViewAdapter extends FragmentPagerAdapter {
 

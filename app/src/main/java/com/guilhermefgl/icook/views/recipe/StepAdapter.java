@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.databinding.ItemRecipeStepBinding;
-import com.guilhermefgl.icook.models.Step;
+import com.guilhermefgl.icook.models.entitys.Step;
 import com.guilhermefgl.icook.viewmodels.StepViewModel;
 
 import java.lang.ref.WeakReference;

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.databinding.ItemMainRecipeBinding;
-import com.guilhermefgl.icook.models.Recipe;
+import com.guilhermefgl.icook.models.entitys.Recipe;
 import com.guilhermefgl.icook.viewmodels.RecipeViewModel;
 
 import java.lang.ref.WeakReference;

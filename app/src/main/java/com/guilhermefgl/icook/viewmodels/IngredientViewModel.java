@@ -6,7 +6,7 @@ import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
 import com.guilhermefgl.icook.BR;
-import com.guilhermefgl.icook.models.Ingredient;
+import com.guilhermefgl.icook.models.entitys.Ingredient;
 
 public class IngredientViewModel extends BaseObservable {
 

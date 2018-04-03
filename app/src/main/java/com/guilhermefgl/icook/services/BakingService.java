@@ -1,7 +1,7 @@
 package com.guilhermefgl.icook.services;
 
 import com.guilhermefgl.icook.BuildConfig;
-import com.guilhermefgl.icook.models.Recipe;
+import com.guilhermefgl.icook.models.entitys.Recipe;
 
 import java.util.ArrayList;
 

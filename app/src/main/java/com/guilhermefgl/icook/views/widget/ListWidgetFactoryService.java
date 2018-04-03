@@ -7,7 +7,7 @@ import android.widget.RemoteViewsService;
 
 import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.models.DataBase;
-import com.guilhermefgl.icook.models.Ingredient;
+import com.guilhermefgl.icook.models.entitys.Ingredient;
 
 import java.util.List;
 

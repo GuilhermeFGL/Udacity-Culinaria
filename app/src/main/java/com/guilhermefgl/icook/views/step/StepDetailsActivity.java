@@ -7,7 +7,7 @@ import android.view.MenuItem;
 
 import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.databinding.ActivityStepDetailBinding;
-import com.guilhermefgl.icook.models.Step;
+import com.guilhermefgl.icook.models.entitys.Step;
 import com.guilhermefgl.icook.views.BaseActivity;
 
 import java.util.ArrayList;

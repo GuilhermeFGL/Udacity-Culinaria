@@ -8,8 +8,12 @@ import android.content.Context;
 import com.guilhermefgl.icook.BuildConfig;
 import com.guilhermefgl.icook.models.daos.IngredientDao;
 import com.guilhermefgl.icook.models.daos.RecipeDao;
+import com.guilhermefgl.icook.models.daos.StepDao;
+import com.guilhermefgl.icook.models.entitys.Ingredient;
+import com.guilhermefgl.icook.models.entitys.Recipe;
+import com.guilhermefgl.icook.models.entitys.Step;
 
-@Database(entities = {Recipe.class, Ingredient.class}, version =  BuildConfig.db_version)
+@Database(entities = {Recipe.class, Ingredient.class, Step.class}, version =  BuildConfig.db_version)
 public abstract class DataBase extends RoomDatabase {
 
     private static DataBase INSTANCE;
@@ -24,4 +28,6 @@ public abstract class DataBase extends RoomDatabase {
     public abstract RecipeDao recipeDao();
 
     public abstract IngredientDao ingredientDao();
+
+    public abstract StepDao stepDao();
 }

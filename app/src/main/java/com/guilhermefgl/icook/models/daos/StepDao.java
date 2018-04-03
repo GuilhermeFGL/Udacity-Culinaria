@@ -4,17 +4,17 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
-import com.guilhermefgl.icook.models.entitys.Ingredient;
+import com.guilhermefgl.icook.models.entitys.Step;
 
 import java.util.List;
 
 @Dao
-public interface IngredientDao {
+public interface StepDao {
 
-    @Query("SELECT * FROM ingredient")
-    List<Ingredient> getAll();
+    @Query("SELECT * FROM step")
+    List<Step> getAll();
 
     @Insert
-    void insertAll(List<Ingredient> ingredients);
+    void insertAll(List<Step> steps);
 
 }

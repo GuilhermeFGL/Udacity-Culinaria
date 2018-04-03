@@ -22,7 +22,7 @@ import com.guilhermefgl.icook.BR;
 import com.guilhermefgl.icook.BuildConfig;
 import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.helpers.PicassoHelper;
-import com.guilhermefgl.icook.models.Step;
+import com.guilhermefgl.icook.models.entitys.Step;
 
 import java.util.List;
 

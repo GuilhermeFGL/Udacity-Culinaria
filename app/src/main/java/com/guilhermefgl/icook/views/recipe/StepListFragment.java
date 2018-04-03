@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.databinding.FragmentListStepBinding;
-import com.guilhermefgl.icook.models.Step;
+import com.guilhermefgl.icook.models.entitys.Step;
 import com.guilhermefgl.icook.views.BaseActivity;
 import com.guilhermefgl.icook.views.BaseFragment;
 import com.guilhermefgl.icook.views.step.StepDetailsActivity;

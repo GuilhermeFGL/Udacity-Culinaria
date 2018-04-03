@@ -19,7 +19,7 @@ import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.databinding.FragmentDetailsStepBinding;
-import com.guilhermefgl.icook.models.Step;
+import com.guilhermefgl.icook.models.entitys.Step;
 import com.guilhermefgl.icook.viewmodels.StepViewModel;
 import com.guilhermefgl.icook.views.BaseActivity;
 import com.guilhermefgl.icook.views.BaseFragment;

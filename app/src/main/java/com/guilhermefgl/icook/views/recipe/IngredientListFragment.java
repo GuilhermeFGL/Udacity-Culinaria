@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.databinding.FragmentListIngredientBinding;
-import com.guilhermefgl.icook.models.Ingredient;
+import com.guilhermefgl.icook.models.entitys.Ingredient;
 import com.guilhermefgl.icook.views.BaseFragment;
 
 import java.util.List;

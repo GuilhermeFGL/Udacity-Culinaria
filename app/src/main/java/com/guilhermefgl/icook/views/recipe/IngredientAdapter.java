@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.databinding.ItemRecipeIngredientBinding;
-import com.guilhermefgl.icook.models.Ingredient;
+import com.guilhermefgl.icook.models.entitys.Ingredient;
 import com.guilhermefgl.icook.viewmodels.IngredientViewModel;
 
 import java.util.List;

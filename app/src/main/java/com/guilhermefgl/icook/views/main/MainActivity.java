@@ -15,7 +15,7 @@ import android.view.View;
 import com.guilhermefgl.icook.views.recipe.RecipeActivity;
 import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.databinding.ActivityMainBinding;
-import com.guilhermefgl.icook.models.Recipe;
+import com.guilhermefgl.icook.models.entitys.Recipe;
 import com.guilhermefgl.icook.services.loaders.RecipeLoader;
 import com.guilhermefgl.icook.views.BaseActivity;
 
