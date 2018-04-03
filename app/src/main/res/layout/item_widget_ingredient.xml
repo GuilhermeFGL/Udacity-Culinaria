@@ -6,8 +6,7 @@
     android:padding="16dp"
     android:orientation="vertical"
     android:gravity="center"
-    android:clickable="false"
-    android:focusable="false">
+    android:background="@color/primary_light">
 
     <TextView
         android:id="@+id/widget_item_ingredient_name"
