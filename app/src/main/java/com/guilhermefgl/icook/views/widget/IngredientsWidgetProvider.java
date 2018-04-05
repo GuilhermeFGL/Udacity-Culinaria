@@ -70,4 +70,3 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_recipe_list);
     }
 }
-

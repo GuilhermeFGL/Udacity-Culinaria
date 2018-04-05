@@ -14,7 +14,7 @@ public class RecipeLoader extends AsyncTaskLoader<ArrayList<Recipe>> {
 
     public static final Integer LOADER_ID = 1001;
 
-    private ArrayList<Recipe> recipesCached;
+    private ArrayList<Recipe> mRecipesCached;
 
     public RecipeLoader(@NonNull Context context) {
         super(context);
@@ -23,8 +23,8 @@ public class RecipeLoader extends AsyncTaskLoader<ArrayList<Recipe>> {
     @Override
     protected void onStartLoading() {
         super.onStartLoading();
-        if (recipesCached != null) {
-            deliverResult(recipesCached);
+        if (mRecipesCached != null) {
+            deliverResult(mRecipesCached);
         } else {
             forceLoad();
         }
@@ -42,7 +42,7 @@ public class RecipeLoader extends AsyncTaskLoader<ArrayList<Recipe>> {
 
     @Override
     public void deliverResult(ArrayList<Recipe> data) {
-        this.recipesCached = data;
+        mRecipesCached = data;
         super.deliverResult(data);
     }
 }

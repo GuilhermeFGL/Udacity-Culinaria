@@ -5,31 +5,36 @@ import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.Snackbar;
+import android.support.test.espresso.IdlingResource;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
+import android.widget.TextView;
 
-import com.guilhermefgl.icook.views.recipe.RecipeActivity;
 import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.databinding.ActivityMainBinding;
 import com.guilhermefgl.icook.models.entitys.Recipe;
 import com.guilhermefgl.icook.services.loaders.RecipeLoader;
 import com.guilhermefgl.icook.views.BaseActivity;
+import com.guilhermefgl.icook.views.SimpleIdlingResource;
+import com.guilhermefgl.icook.views.recipe.RecipeActivity;
 
 import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity implements LoaderManager.LoaderCallbacks<ArrayList<Recipe>>,
         RecipeAdapter.EventHandler, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
+    private static final String STATE_RECIPE = MainActivity.class.getName().concat(".STATE_RECIPE");
+
     private ActivityMainBinding mBinding;
     private RecipeAdapter recipeAdapter;
     private Snackbar errorSnackBar;
     private ArrayList<Recipe> mRecipes;
-
-    private static final String STATE_RECIPE = MainActivity.class.getName().concat(".STATE_RECIPE");
+    private SimpleIdlingResource mIdlingResource;
 
     public static void startActivity(BaseActivity activity) {
         activity.startActivity(
@@ -43,11 +48,14 @@ public class MainActivity extends BaseActivity implements LoaderManager.LoaderCa
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setSupportActionBar(mBinding.mainToolbar);
 
+        mIdlingResource = new SimpleIdlingResource();
         errorSnackBar = Snackbar.make(
                 mBinding.mainLayout,
                 R.string.error_main_connection_msg,
                 Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.error_main_connection_action, this);
+        ((TextView) errorSnackBar.getView().findViewById(android.support.design.R.id.snackbar_text))
+                .setTextColor(getResources().getColor(android.R.color.white));
 
         int spanCount = 1;
         if (getResources().getBoolean(R.bool.isTablet)) {
@@ -94,6 +102,7 @@ public class MainActivity extends BaseActivity implements LoaderManager.LoaderCa
         } else {
             errorSnackBar.show();
         }
+        mIdlingResource.setIdleState(true);
     }
 
     @Override
@@ -116,7 +125,14 @@ public class MainActivity extends BaseActivity implements LoaderManager.LoaderCa
         RecipeActivity.startActivity(this, extras);
     }
 
+    @VisibleForTesting
+    @NonNull
+    public IdlingResource getIdlingResource() {
+        return mIdlingResource;
+    }
+
     private void getRecipes() {
+        mIdlingResource.setIdleState(false);
         if (isDeviceConnected()) {
             LoaderManager loaderManager = getSupportLoaderManager();
             if (loaderManager.getLoader(RecipeLoader.LOADER_ID) == null) {

@@ -47,7 +47,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
         notifyDataSetChanged();
     }
 
-    class RecipeAdapterViewHolder extends RecyclerView.ViewHolder {
+    public class RecipeAdapterViewHolder extends RecyclerView.ViewHolder {
 
         private final ItemMainRecipeBinding mBinding;
 
