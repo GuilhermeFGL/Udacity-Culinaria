@@ -14,51 +14,62 @@
             type="com.guilhermefgl.icook.viewmodels.StepViewModel.EventHandler" />
     </data>
     
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:orientation="vertical">
 
-        <com.google.android.exoplayer2.ui.PlayerView
+        <LinearLayout
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/step_navigation_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="@{viewModel.hasVideo ? View.VISIBLE : View.GONE}"
-            app:resize_mode="fixed_width"
-            app:videoUrl="@{viewModel.videoUrl}"
-            tools:layout_height="200dp" />
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:scaleType="fitCenter"
-            android:contentDescription="@string/step_thumbnail_description"
-            android:visibility="@{viewModel.hasThumbnail ? View.VISIBLE : View.GONE}"
-            app:thumbnailUrl="@{viewModel.thumbnailUrl}" />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:minHeight="200dp"
-            android:layout_weight="1">
-
-            <TextView
+            <com.google.android.exoplayer2.ui.PlayerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:lineSpacingExtra=".35dp"
-                android:text="@={viewModel.description}"
-                tools:text="description of step #" />
+                android:visibility="@{viewModel.hasVideo ? View.VISIBLE : View.GONE}"
+                app:resize_mode="fixed_width"
+                app:videoUrl="@{viewModel.videoUrl}"
+                tools:layout_height="200dp" />
 
-        </ScrollView>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="@string/step_thumbnail_description"
+                android:scaleType="fitCenter"
+                android:visibility="@{viewModel.hasThumbnail ? View.VISIBLE : View.GONE}"
+                app:thumbnailUrl="@{viewModel.thumbnailUrl}" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra=".35dp"
+                    android:padding="16dp"
+                    android:text="@={viewModel.description}"
+                    tools:text="description of step #" />
+
+            </ScrollView>
+
+        </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/step_navigation_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true">
 
             <Button
+                android:id="@+id/step_navigation_prev_action"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -69,6 +80,7 @@
                 tools:ignore="ButtonStyle" />
 
             <Button
+                android:id="@+id/step_navigation_next_action"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -80,6 +92,6 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </layout>

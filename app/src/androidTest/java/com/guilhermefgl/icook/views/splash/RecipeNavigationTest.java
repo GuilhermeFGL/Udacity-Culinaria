@@ -1,5 +1,6 @@
 package com.guilhermefgl.icook.views.splash;
 
+import android.content.pm.ActivityInfo;
 import android.support.test.espresso.IdlingRegistry;
 import android.support.test.espresso.IdlingResource;
 import android.support.test.espresso.ViewInteraction;
@@ -19,7 +20,6 @@ import com.guilhermefgl.icook.views.main.MainActivity;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -31,14 +31,13 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
+import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
 @LargeTest
@@ -59,6 +58,10 @@ public class RecipeNavigationTest {
     public void registerIdlingResource() {
         mIdlingResource = mActivityTestRule.getActivity().getIdlingResource();
         IdlingRegistry.getInstance().register(mIdlingResource);
+
+        // navigation is not visible in landscape
+        mActivityTestRule.getActivity()
+                .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     @Test
@@ -100,8 +103,8 @@ public class RecipeNavigationTest {
         // verify if steps list is created
         ViewInteraction linearLayout2 = onView(
                 allOf(childAtPosition(
-                        allOf(withId(R.id.step_list),
-                                withParent(withId(R.id.details_pager))),
+                        allOf(withId(R.id.include),
+                                isDescendantOfA(withId(R.id.frameLayout))),
                         0),
                         isDisplayed()));
         linearLayout2.check(matches(isDisplayed()));
@@ -119,41 +122,26 @@ public class RecipeNavigationTest {
                 allOf(withText("Recipe Introduction"),
                         childAtPosition(
                                 allOf(withId(R.id.step_toolbar),
-                                        childAtPosition(
-                                                withId(R.id.app_bar),
-                                                0)),
-                                1),
+                                        isDescendantOfA(withId(R.id.app_bar))),
+                                0),
                         isDisplayed()));
         textView.check(matches(withText("Recipe Introduction")));
 
         // verify if 'Prev Step' button is disabled
         ViewInteraction button = onView(
-                allOf(childAtPosition(
-                        childAtPosition(
-                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                2),
-                        0),
+                allOf(withId(R.id.step_navigation_prev_action),
                         isDisplayed()));
         button.check(matches(not(isEnabled())));
 
         // verify if 'Next Step' button is enabled
         ViewInteraction button2 = onView(
-                allOf(childAtPosition(
-                        childAtPosition(
-                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                2),
-                        1),
+                allOf(withId(R.id.step_navigation_next_action),
                         isDisplayed()));
         button2.check(matches(isEnabled()));
 
         // click 'Next Step'
         ViewInteraction appCompatButton = onView(
-                allOf(withText("next step"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.LinearLayout")),
-                                        3),
-                                1),
+                allOf(withId(R.id.step_navigation_next_action),
                         isDisplayed()));
         appCompatButton.perform(click());
 
@@ -162,105 +150,62 @@ public class RecipeNavigationTest {
                 allOf(withText("Starting prep"),
                         childAtPosition(
                                 allOf(withId(R.id.step_toolbar),
-                                        childAtPosition(
-                                                withId(R.id.app_bar),
-                                                0)),
-                                1),
+                                        isDescendantOfA(withId(R.id.app_bar))),
+                                0),
                         isDisplayed()));
         textView2.check(matches(withText("Starting prep")));
 
         // verify if 'Prev Step' button is enabled
         ViewInteraction button3 = onView(
-                allOf(childAtPosition(
-                        childAtPosition(
-                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                1),
-                        0),
+                allOf(withId(R.id.step_navigation_prev_action),
                         isDisplayed()));
         button3.check(matches(isDisplayed()));
 
         // verify if 'Next Step' button is enabled
         ViewInteraction button4 = onView(
-                allOf(childAtPosition(
-                        childAtPosition(
-                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                1),
-                        1),
+                allOf(withId(R.id.step_navigation_next_action),
                         isDisplayed()));
         button4.check(matches(isDisplayed()));
 
         // click 'Next Step'
         ViewInteraction appCompatButton2 = onView(
-                allOf(withText("next step"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.LinearLayout")),
-                                        3),
-                                1),
+                allOf(withId(R.id.step_navigation_next_action),
                         isDisplayed()));
         appCompatButton2.perform(click());
 
         // click 'Next Step'
         ViewInteraction appCompatButton3 = onView(
-                allOf(withText("next step"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.LinearLayout")),
-                                        3),
-                                1),
+                allOf(withId(R.id.step_navigation_next_action),
                         isDisplayed()));
         appCompatButton3.perform(click());
 
         // click 'Next Step'
         ViewInteraction appCompatButton4 = onView(
-                allOf(withText("next step"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.LinearLayout")),
-                                        3),
-                                1),
+                allOf(withId(R.id.step_navigation_next_action),
                         isDisplayed()));
         appCompatButton4.perform(click());
 
         // click 'Next Step'
         ViewInteraction appCompatButton5 = onView(
-                allOf(withText("next step"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.LinearLayout")),
-                                        3),
-                                1),
+                allOf(withId(R.id.step_navigation_next_action),
                         isDisplayed()));
         appCompatButton5.perform(click());
 
         // click 'Next Step' and reach last step of current recipe
         ViewInteraction appCompatButton6 = onView(
-                allOf(withText("next step"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.LinearLayout")),
-                                        3),
-                                1),
+                allOf(withId(R.id.step_navigation_next_action),
                         isDisplayed()));
         appCompatButton6.perform(click());
 
         // verify if 'Prev Step' button is enabled
         ViewInteraction button5 = onView(
-                allOf(childAtPosition(
-                        childAtPosition(
-                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                2),
-                        0),
+                allOf(withId(R.id.step_navigation_prev_action),
                         isDisplayed()));
         button5.check(matches(isDisplayed()));
 
         // verify if 'Next Step' button is disabled
         ViewInteraction button6 = onView(
-                allOf(childAtPosition(
-                        childAtPosition(
-                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                2),
-                        1),
+                allOf(withId(R.id.step_navigation_next_action),
                         isDisplayed()));
         button6.check(matches(isDisplayed()));
 

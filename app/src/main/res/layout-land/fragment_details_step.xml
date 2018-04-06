@@ -59,11 +59,13 @@
             </ScrollView>
 
             <LinearLayout
+                android:id="@+id/step_navigation_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/step_navigation_prev_action"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -74,6 +76,7 @@
                     tools:ignore="ButtonStyle" />
 
                 <Button
+                    android:id="@+id/step_navigation_next_action"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
