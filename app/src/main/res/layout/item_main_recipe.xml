@@ -28,7 +28,6 @@
                 android:id="@+id/recipe_item_thumbnail"
                 android:layout_width="128dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="8dp"
                 android:layout_marginEnd="8dp"
                 android:scaleType="fitCenter"
                 android:contentDescription="@string/recipe_item_thumbnail"
@@ -36,7 +35,6 @@
                 tools:src="@drawable/icon_placeholder" />
 
             <LinearLayout
-                android:layout_toRightOf="@+id/recipe_item_thumbnail"
                 android:layout_toEndOf="@+id/recipe_item_thumbnail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

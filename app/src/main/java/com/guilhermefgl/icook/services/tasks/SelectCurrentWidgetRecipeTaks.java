@@ -10,12 +10,12 @@ import com.guilhermefgl.icook.models.entitys.Step;
 
 import java.util.ArrayList;
 
-public class SelectCurrentWidgetRecipe  extends AsyncTask<Void, Void, Recipe> {
+public class SelectCurrentWidgetRecipeTaks extends AsyncTask<Void, Void, Recipe> {
 
-    private DataBase mDb;
-    private SelectRecipeCallBack mCallBack;
+    private final DataBase mDb;
+    private final SelectRecipeCallBack mCallBack;
 
-    public SelectCurrentWidgetRecipe(Context context, SelectRecipeCallBack callBack) {
+    public SelectCurrentWidgetRecipeTaks(Context context, SelectRecipeCallBack callBack) {
         mDb = DataBase.getInstance(context);
         mCallBack = callBack;
     }

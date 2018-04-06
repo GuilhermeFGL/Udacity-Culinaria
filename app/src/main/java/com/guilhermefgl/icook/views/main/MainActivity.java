@@ -20,7 +20,7 @@ import com.guilhermefgl.icook.databinding.ActivityMainBinding;
 import com.guilhermefgl.icook.models.entitys.Recipe;
 import com.guilhermefgl.icook.services.loaders.RecipeLoader;
 import com.guilhermefgl.icook.views.BaseActivity;
-import com.guilhermefgl.icook.views.SimpleIdlingResource;
+import com.guilhermefgl.icook.helpers.SimpleIdlingResource;
 import com.guilhermefgl.icook.views.recipe.RecipeActivity;
 
 import java.util.ArrayList;

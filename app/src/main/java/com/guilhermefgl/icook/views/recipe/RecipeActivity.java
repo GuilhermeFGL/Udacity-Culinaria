@@ -1,7 +1,5 @@
 package com.guilhermefgl.icook.views.recipe;
 
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -12,12 +10,12 @@ import android.widget.Toast;
 import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.databinding.ActivityRecipeBinding;
 import com.guilhermefgl.icook.models.entitys.Recipe;
-import com.guilhermefgl.icook.services.tasks.InsertCurrentWidgetRecipe;
+import com.guilhermefgl.icook.services.tasks.InsertCurrentWidgetRecipeTask;
 import com.guilhermefgl.icook.views.BaseActivity;
 import com.guilhermefgl.icook.views.widget.IngredientsWidgetProvider;
 
 public class RecipeActivity extends BaseActivity
-        implements View.OnClickListener, InsertCurrentWidgetRecipe.SaveRecipeCallBack {
+        implements View.OnClickListener, InsertCurrentWidgetRecipeTask.SaveRecipeCallBack {
 
     public static final String BUNDLE_RECIPE =  RecipeActivity.class.getName().concat(".BUNDLE_RECIPE");
 
@@ -69,7 +67,7 @@ public class RecipeActivity extends BaseActivity
     @Override
     public void onClick(View v) {
         if (mRecipe != null) {
-            new InsertCurrentWidgetRecipe(getApplicationContext(), this).execute(mRecipe);
+            new InsertCurrentWidgetRecipeTask(getApplicationContext(), this).execute(mRecipe);
         } else {
             Toast.makeText(this, R.string.recipe_widget_error, Toast.LENGTH_LONG).show();
         }

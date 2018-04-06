@@ -27,7 +27,7 @@
     <string name="widget_empty_label">Add a list of ingredients by clicking at the button</string>
     <string name="widget_empty_action_description">action add widget</string>
 
-    <!-- GERAL -->
+    <!-- GENERAL -->
     <bool name="isTablet">false</bool>
 
 </resources>

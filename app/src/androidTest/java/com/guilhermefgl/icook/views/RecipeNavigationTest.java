@@ -1,4 +1,4 @@
-package com.guilhermefgl.icook.views.splash;
+package com.guilhermefgl.icook.views;
 
 import android.content.pm.ActivityInfo;
 import android.support.test.espresso.IdlingRegistry;
@@ -45,7 +45,7 @@ import static org.hamcrest.Matchers.not;
 public class RecipeNavigationTest {
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+    public final ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     private IdlingResource mIdlingResource;
 
@@ -67,7 +67,7 @@ public class RecipeNavigationTest {
     @Test
     public void recipeNavigationTest() {
 
-        // go to RecipeActivity with click at first recipe in gridview
+        // go to RecipeActivity with click at first recipe in grid view
         onView(ViewMatchers.withId(R.id.main_list))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
@@ -109,7 +109,7 @@ public class RecipeNavigationTest {
                         isDisplayed()));
         linearLayout2.check(matches(isDisplayed()));
 
-        // go to StepDetailsActivity with click at first step at listview
+        // go to StepDetailsActivity with click at first step at list view
         ViewInteraction recyclerView2 = onView(
                 allOf(withId(R.id.include),
                         childAtPosition(

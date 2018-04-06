@@ -11,7 +11,7 @@ import android.widget.RemoteViews;
 
 import com.guilhermefgl.icook.R;
 import com.guilhermefgl.icook.models.entitys.Recipe;
-import com.guilhermefgl.icook.services.tasks.SelectCurrentWidgetRecipe;
+import com.guilhermefgl.icook.services.tasks.SelectCurrentWidgetRecipeTaks;
 import com.guilhermefgl.icook.views.recipe.RecipeActivity;
 import com.guilhermefgl.icook.views.splash.SplashActivity;
 
@@ -32,7 +32,7 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
     public void onUpdate(final Context context,
                          final AppWidgetManager appWidgetManager,
                          final int[] appWidgetIds) {
-        new SelectCurrentWidgetRecipe(context, new SelectCurrentWidgetRecipe.SelectRecipeCallBack() {
+        new SelectCurrentWidgetRecipeTaks(context, new SelectCurrentWidgetRecipeTaks.SelectRecipeCallBack() {
             @Override
             public void onSelect(Recipe recipe) {
                 for (int appWidgetId : appWidgetIds) {

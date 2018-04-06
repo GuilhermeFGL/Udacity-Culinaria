@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.guilhermefgl.icook.views;
+package com.guilhermefgl.icook.helpers;
 
 import android.support.annotation.Nullable;
 import android.support.test.espresso.IdlingResource;
@@ -23,10 +23,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SimpleIdlingResource implements IdlingResource {
 
+    private final AtomicBoolean mIsIdleNow = new AtomicBoolean(true);
+
     @Nullable
     private volatile ResourceCallback mCallback;
-
-    private AtomicBoolean mIsIdleNow = new AtomicBoolean(true);
 
     @Override
     public String getName() {

@@ -16,11 +16,11 @@ import java.util.List;
 
 public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder> {
 
-    private final List<Step> mSptes;
+    private final List<Step> mStpes;
     private final WeakReference<EventHandler> mEventHandler;
 
     StepAdapter(@NonNull List<Step> steps, @NonNull EventHandler eventHandler) {
-        mSptes = steps;
+        mStpes = steps;
         mEventHandler = new WeakReference<>(eventHandler);
     }
 
@@ -35,12 +35,12 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull StepViewHolder holder, int position) {
-        holder.setModel(mSptes.get(position));
+        holder.setModel(mStpes.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mSptes.size();
+        return mStpes.size();
     }
 
     class StepViewHolder extends RecyclerView.ViewHolder {

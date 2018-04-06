@@ -39,9 +39,9 @@ class ViewAdapter extends FragmentPagerAdapter {
                 Bundle ingredientArguments = new Bundle();
                 ingredientArguments.putParcelableArrayList(
                         IngredientListFragment.BUNDLE_INGREDIENTS, mRecipe.getIngredients());
-                IngredientListFragment ingredienFragment =  new IngredientListFragment();
-                ingredienFragment.setArguments(ingredientArguments);
-                return ingredienFragment;
+                IngredientListFragment ingredientListFragment =  new IngredientListFragment();
+                ingredientListFragment.setArguments(ingredientArguments);
+                return ingredientListFragment;
             default:
                 return new StepListFragment();
         }

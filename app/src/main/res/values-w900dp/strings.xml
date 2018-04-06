@@ -1,6 +1,6 @@
 <resources>
 
-    <!-- GERAL -->
+    <!-- GENERAL -->
     <bool name="isTablet">true</bool>
 
 </resources>
